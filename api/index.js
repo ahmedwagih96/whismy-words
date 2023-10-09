@@ -1,10 +1,13 @@
+require('dotenv').config();
+const connectDB = require('./db/connect.js')
+const { errorHandler } = require('./middleware/error.js');
+const { notFound } = require('./middleware/not-found.js');
 const express = require('express')
 const app = express()
-const connectDB = require('./db/connect')
-require('dotenv').config();
-const { errorHandler } = require('./middleware/error');
-const { notFound } = require('./middleware/not-found');
+app.use(express.json())
 
+// Routes
+app.use('/api/auth', require('./routes/auth.route.js'));
 
 // Not Found
 app.use(notFound)
