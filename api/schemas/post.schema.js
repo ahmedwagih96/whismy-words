@@ -30,9 +30,22 @@ const PostSchema = new mongoose.Schema({
             publicId: null,
         }
     },
+    likes: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'
+        }
+    ]
 }, {
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true }
 })
 
+PostSchema.virtual("comments", {
+    ref: "Comment",
+    foreignField: "postId",
+    localField: "_id"
 
+})
 module.exports = { PostSchema }

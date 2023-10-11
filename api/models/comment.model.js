@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-const { CommentSchema } = require("../schemas/comment.schema");
+const { CommentSchema } = require("../schemas/comment.schema.js");
 
 
 const Comment = mongoose.model("Comment", CommentSchema);
 
-module.exports = { Comment, validateCreateComment, validateUpdateComment }
+module.exports = { Comment }

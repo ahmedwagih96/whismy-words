@@ -10,6 +10,7 @@ app.use(express.json())
 app.use('/api/auth', require('./routes/auth.route.js'));
 app.use('/api/users', require('./routes/user.route.js'));
 app.use('/api/posts', require('./routes/post.route.js'));
+app.use('/api/comments', require('./routes/comment.route.js'));
 
 // Not Found
 app.use(notFound)

@@ -46,7 +46,10 @@ const getPostsByQueries = async (req, res) => {
     * @access public
 -----------------------------------------------------*/
 const getPost = async (req, res) => {
-    const post = await Post.findById(req.params.id);
+    const post = await Post.findById(req.params.id).populate("user", ['-password']).populate({
+        path: 'comments',
+        populate: { path: 'user', select: '-password' }
+    })
 
     if (!post) {
         return res.status(StatusCodes.NOT_FOUND).json({ message: 'Post not found' })
