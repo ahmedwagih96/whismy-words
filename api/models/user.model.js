@@ -1,7 +1,13 @@
 const mongoose = require("mongoose");
 const { UserSchema } = require("../schemas/user.schema.js");
 const Joi = require('joi');
-const passwordComplexity = require('joi-password-complexity')
+const passwordComplexity = require('joi-password-complexity');
+const jwt = require('jsonwebtoken');
+// Generate Auth Token
+UserSchema.methods.generateToken = function () {
+    return jwt.sign({ id: this._id, isAdmin: this.isAdmin }, process.env.JWT_SECRET)
+}
+
 const User = mongoose.model("User", UserSchema);
 
 // Validate Register User
