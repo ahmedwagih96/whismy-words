@@ -11,7 +11,7 @@ const getAllUsers = async (req, res) => {
     if (!req.user.isAdmin) {
         return res.status(StatusCodes.FORBIDDEN).json({ message: 'Access Denied' })
     }
-    const users = await User.find({}).select("-password").populate("posts")
+    const users = await User.find({}).select("-password");
     res.status(StatusCodes.OK).json(users)
 }
 
@@ -22,7 +22,11 @@ const getAllUsers = async (req, res) => {
     * @access public
 -----------------------------------------------------*/
 const getUser = async (req, res) => {
-    const user = await User.findById(req.params.id).select("-password");
+    const user = await User.findById(req.params.id).select("-password").populate({
+        path: 'posts',
+        options: { sort: { createdAt: -1 } },
+        populate: { path: 'user', select: '-password' }
+    })
     if (!user) {
         return res.status(StatusCodes.NOT_FOUND).json({ message: "user not found" })
     }
