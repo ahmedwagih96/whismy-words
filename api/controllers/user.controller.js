@@ -29,5 +29,16 @@ const getUser = async (req, res) => {
     res.status(StatusCodes.OK).json(user)
 }
 
+/**-----------------------------------------------------
+    * @desc Get Users Count
+    * @route /api/users/count
+    * @method GET
+    * @access private (only admin)
+-----------------------------------------------------*/
+const getUsersCount = async (req, res) => {
+    const count = await User.count()
+    res.status(StatusCodes.OK).json(count)
+}
 
-module.exports = { getAllUsers, getUser }
+
+module.exports = { getAllUsers, getUser, getUsersCount }
