@@ -15,4 +15,19 @@ const getAllUsers = async (req, res) => {
     res.status(StatusCodes.OK).json(users)
 }
 
-module.exports = { getAllUsers }
+/**-----------------------------------------------------
+    * @desc Get user profile
+    * @route /api/users/profile/:id
+    * @method GET
+    * @access public
+-----------------------------------------------------*/
+const getUser = async (req, res) => {
+    const user = await User.findById(req.params.id).select("-password");
+    if (!user) {
+        return res.status(StatusCodes.NOT_FOUND).json({ message: "user not found" })
+    }
+    res.status(StatusCodes.OK).json(user)
+}
+
+
+module.exports = { getAllUsers, getUser }
