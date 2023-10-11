@@ -39,4 +39,30 @@ const getPostsByQueries = async (req, res) => {
     res.status(StatusCodes.OK).json({ posts, postsCount })
 }
 
-module.exports = { getPostsByQueries }
+/**-----------------------------------------------------
+    * @desc  Get Post
+    * @route /api/posts/:id
+    * @method GET
+    * @access public
+-----------------------------------------------------*/
+const getPost = async (req, res) => {
+    const post = await Post.findById(req.params.id);
+
+    if (!post) {
+        return res.status(StatusCodes.NOT_FOUND).json({ message: 'Post not found' })
+    }
+    res.status(StatusCodes.OK).json(post)
+}
+
+/**-----------------------------------------------------
+    * @desc  Get Posts Count 
+    * @route /api/posts/count
+    * @method GET
+    * @access Private (only admin)
+-----------------------------------------------------*/
+const getPostsCount = async (req, res) => {
+    const postsCount = await Post.count()
+    res.status(StatusCodes.OK).json(postsCount)
+}
+
+module.exports = { getPostsByQueries, getPost, getPostsCount }
