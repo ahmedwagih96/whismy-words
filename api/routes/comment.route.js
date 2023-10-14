@@ -1,10 +1,15 @@
 const router = require('express').Router()
 // Controllers
-const { getAllComments } = require('../controllers/comment.controller.js')
+const { getAllComments, deleteComment, updateComment, createComment } = require('../controllers/comment.controller.js')
 // Middleware
-const { verifyTokenAndAdmin } = require("../middleware/authentication")
+const { verifyAdmin, verifyToken } = require("../middleware/authentication")
+const { validateId } = require("../middleware/validateObjectId.js")
 
 router.route("/")
-    .get(verifyTokenAndAdmin, getAllComments)
+    .get(verifyAdmin, getAllComments)
+    .post(verifyToken, createComment)
 
+router.route('/:id')
+    .delete(validateId, verifyToken, deleteComment)
+    .put(validateId, verifyToken, updateComment)
 module.exports = router

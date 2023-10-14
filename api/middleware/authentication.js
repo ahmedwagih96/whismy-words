@@ -18,8 +18,8 @@ function verifyToken(req, res, next) {
     }
 }
 
-// Verify Token & Admin 
-function verifyTokenAndAdmin(req, res, next) {
+// Verify Admin 
+function verifyAdmin(req, res, next) {
     verifyToken(req, res, () => {
         if (req.user.isAdmin) {
             next();
@@ -29,4 +29,4 @@ function verifyTokenAndAdmin(req, res, next) {
     })
 }
 
-module.exports = { verifyToken, verifyTokenAndAdmin }
+module.exports = { verifyToken, verifyAdmin }
