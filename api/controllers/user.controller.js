@@ -1,5 +1,6 @@
 const { User } = require('../models/user.model.js');
 const { StatusCodes } = require("http-status-codes");
+const { Post } = require("../models/post.model.js");
 
 /**-----------------------------------------------------
     * @desc Get All Users
@@ -44,5 +45,28 @@ const getUsersCount = async (req, res) => {
     res.status(StatusCodes.OK).json(count)
 }
 
+/**-----------------------------------------------------
+    * @desc  Delete User Profile
+    * @route /api/users/profile/:id
+    * @method DELETE
+    * @access private (only admin or user)
+-----------------------------------------------------*/
+const deleteUser = async (req, res) => {
+    // Get the user from DB
+    const user = await User.findById(req.params.id);
+    if (!user) {
+        return res.status(StatusCodes.NOT_FOUND).json({ message: "user not found" })
+    }
 
-module.exports = { getAllUsers, getUser, getUsersCount }
+    // Delete user posts & comments 
+    await Post.deleteMany({ user: user._id })
+    await Comment.deleteMany({ user: user._id })
+
+    // Delete the user
+    await User.findByIdAndDelete(req.params.id)
+
+    // Send a response to the client
+    res.status(StatusCodes.OK).json({ message: 'The profile has been deleted' })
+}
+
+module.exports = { getAllUsers, getUser, getUsersCount, deleteUser }

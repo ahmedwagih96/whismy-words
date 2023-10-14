@@ -29,4 +29,15 @@ function verifyAdmin(req, res, next) {
     })
 }
 
-module.exports = { verifyToken, verifyAdmin }
+// Verify User Access 
+function verifyUserAccess(req, res, next) {
+    verifyToken(req, res, () => {
+        if (req.user.id === req.params.id || req.user.isAdmin) {
+            next();
+        } else {
+            return res.status(StatusCodes.UNAUTHORIZED).json({ message: 'Access denied' })
+        }
+    })
+}
+
+module.exports = { verifyToken, verifyAdmin, verifyUserAccess }

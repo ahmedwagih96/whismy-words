@@ -1,15 +1,14 @@
 const router = require('express').Router();
 // Controllers 
-const { getAllUsers, getUser, getUsersCount } = require("../controllers/user.controller.js");
+const { getAllUsers, getUser, getUsersCount, deleteUser } = require("../controllers/user.controller.js");
 // Middleware
-const { verifyAdmin } = require("../middleware/authentication.js");
+const { verifyAdmin, verifyUserAccess } = require("../middleware/authentication.js");
 const { validateId } = require("../middleware/validateObjectId.js")
-// Get All Users
+
 router.route('/profile').get(verifyAdmin, getAllUsers);
-// Get Single User 
 router.route('/profile/:id')
     .get(validateId, getUser)
-// Get All Users Count 
+    .delete(validateId, verifyUserAccess, deleteUser);
 router.route('/count').get(verifyAdmin, getUsersCount);
 
 module.exports = router;
