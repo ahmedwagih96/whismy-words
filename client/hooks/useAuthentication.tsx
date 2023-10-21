@@ -2,7 +2,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { registerUser } from "@/utils/auth";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { AuthForm } from "@/typings/types";
@@ -74,7 +74,17 @@ export default function useAuthentication() {
     setLoading(false);
   };
 
+  
+  // LOG OUT
+  const logoutHandler = () => {
+    // SIGN OUT WITH NEXT-AUTH
+    signOut();
+    // REDIRECT TO LOGIN PAGE
+    router.push("/auth/login");
+  };
+
   return {
+    logoutHandler,
     registerHandler,
     loginHandler,
     handleAuthForm,

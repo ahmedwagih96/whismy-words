@@ -49,6 +49,59 @@
   margin-right: 5px;
 }
 
+.header__user-info {
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+}
+
+.header__username {
+  font-size: 21px;
+  font-weight: 500;
+  color: var(--main-color);
+  margin-right: 10px;
+  text-transform: capitalize;
+  user-select: none;
+}
+
+.header__user-photo {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50px;
+}
+
+/* DropDown */
+.header__dropdown {
+  position: absolute;
+  right: 0;
+  top: 110%;
+  width: 100%;
+  background-color: var(--main-color);
+  border: 1px solid var(--white-color);
+  border-radius: 10px;
+  text-align: left;
+}
+
+.header__dropdown-item {
+  color: var(--primary-color);
+  font-size: 21px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: 0.2s;
+  padding: 5px 10px;
+}
+
+.header__dropdown-item:hover {
+  color: var(--blue-color);
+  padding-left: 15px;
+}
+
 /* Media Queries */
 @media (max-width: 520px) {
   .header {
