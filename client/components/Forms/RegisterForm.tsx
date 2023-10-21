@@ -1,8 +1,15 @@
 "use client";
-import { EnvelopeOpenIcon, UserCircleIcon, LockClosedIcon } from "@heroicons/react/24/solid";
+import useAuthentication from "@/hooks/useAuthentication";
+import {
+  EnvelopeOpenIcon,
+  UserCircleIcon,
+  LockClosedIcon,
+} from "@heroicons/react/24/solid";
 function RegisterForm() {
+  const { registerHandler, authForm, loading, handleAuthForm } =
+    useAuthentication();
   return (
-    <form  className="authForm">
+    <form className="authForm" onSubmit={registerHandler}>
       <div className="authForm__group">
         <label htmlFor="username" className="authForm__label">
           Username
@@ -10,6 +17,8 @@ function RegisterForm() {
         <div className="input__group">
           <UserCircleIcon />
           <input
+            onChange={handleAuthForm}
+            value={authForm.username}
             type="text"
             name="username"
             placeholder="Username"
@@ -24,6 +33,8 @@ function RegisterForm() {
         <div className="input__group">
           <EnvelopeOpenIcon />
           <input
+            onChange={handleAuthForm}
+            value={authForm.email}
             type="email"
             name="email"
             placeholder="Email"
@@ -38,6 +49,8 @@ function RegisterForm() {
         <div className="input__group">
           <LockClosedIcon />
           <input
+            onChange={handleAuthForm}
+            value={authForm.password}
             type="password"
             name="password"
             placeholder="Password"
@@ -52,6 +65,8 @@ function RegisterForm() {
         <div className="input__group">
           <LockClosedIcon />
           <input
+            onChange={handleAuthForm}
+            value={authForm.verifyPassword}
             type="password"
             name="verifyPassword"
             placeholder="Re-enter  password"
@@ -59,7 +74,9 @@ function RegisterForm() {
           />
         </div>
       </div>
-      <button type="submit" className="authForm__btn">Register</button>
+      <button disabled={loading} type="submit" className="authForm__btn">
+        {loading ? "Registering..." : "Register"}
+      </button>
     </form>
   );
 }

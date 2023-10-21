@@ -1,6 +1,7 @@
 import { Header, Footer } from "@/components";
 import "./globals.css";
 import type { Metadata } from "next";
+import { Providers } from "./provider";
 
 export const metadata: Metadata = {
   title: "Whismy Words",
@@ -15,9 +16,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Header />
-        {children}
-        <Footer />
+        <Providers>
+          <Header />
+          {children}
+          <Footer />
+        </Providers>
       </body>
     </html>
   );
