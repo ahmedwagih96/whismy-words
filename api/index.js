@@ -4,13 +4,16 @@ const { errorHandler } = require('./middleware/error.js');
 const { notFound } = require('./middleware/not-found.js');
 const express = require('express')
 const app = express()
-app.use(express.json())
+app.use(express.json());
+const cors = require("cors");
 
+app.use(cors())
 // Routes
 app.use('/api/auth', require('./routes/auth.route.js'));
 app.use('/api/users', require('./routes/user.route.js'));
 app.use('/api/posts', require('./routes/post.route.js'));
 app.use('/api/comments', require('./routes/comment.route.js'));
+app.use('/api/category', require('./routes/category.route.js'));
 
 // Not Found
 app.use(notFound)
