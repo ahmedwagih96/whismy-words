@@ -45,3 +45,36 @@ select:focus,
 textarea:focus {
   outline: none;
 }
+
+/* START ERRORS */
+.error {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.error__status {
+  font-size: 70px;
+  font-weight: bold;
+  color: var(--red-color);
+}
+.error__text {
+  font-size: 30px;
+  color: var(--primary-color);
+  margin-bottom: 30px;
+  text-transform: capitalize;
+}
+.error__link {
+  display: block;
+  color: var(--white-color);
+  background-color: var(--secondary-color);
+  font-size: 21px;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+.error__link:hover {
+  background-color: var(--primary-color);
+}
+/* END ERRORS */
