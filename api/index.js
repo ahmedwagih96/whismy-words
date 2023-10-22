@@ -14,7 +14,7 @@ app.use('/api/users', require('./routes/user.route.js'));
 app.use('/api/posts', require('./routes/post.route.js'));
 app.use('/api/comments', require('./routes/comment.route.js'));
 app.use('/api/category', require('./routes/category.route.js'));
-
+app.use('api/password', require('./routes/password.route.js'))
 // Not Found
 app.use(notFound)
 // Error Handler Middleware

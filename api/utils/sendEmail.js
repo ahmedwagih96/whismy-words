@@ -37,4 +37,18 @@ const sendVerifyEmail = async (id, token, email) => {
     await sendEmail(email, "Verify Your Email", htmlTemplate)
 }
 
-module.exports = { sendVerifyEmail }
+const sendResetPasswordEmail = async (id, token, email) => {
+    // Making the Link 
+    const link = `${process.env.CLIENT_DOMAIN}/auth/reset-password/${id}/${token}`
+    // Putting the link into an html template
+    const htmlTemplate = `
+    <div>
+        <p> Click on the link to reset your password </p>
+        <a href="${link}">Reset Password</a>
+    </div>
+`
+    // Send the verification email
+    await sendEmail(email, "Reset Your Password", htmlTemplate)
+}
+
+module.exports = { sendVerifyEmail, sendResetPasswordEmail }
