@@ -90,10 +90,48 @@
   border-radius: 10px;
   padding: 10px;
   margin-top: 15px;
-  transition: opacity .3s
+  transition: opacity 0.3s;
 }
 
 .authForm__btn:hover {
   opacity: 0.8;
 }
+
+/* Media Queries */
+@media (max-width: 520px) {
+  .authForm {
+    width: 100%;
+  }
+}
 /* END AUTH FORM */
+
+/* START VERIFY USER PAGE */
+.verify {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.verify__icon {
+  height: 80px;
+  color: var(--green-color);
+}
+.verify__title {
+  font-size: 32px;
+  color: var(--green-color);
+  margin-bottom: 20px;
+}
+.verify__link {
+  font-size: 24px;
+  font-weight: 600;
+  padding: 15px 20px;
+  background-color: var(--primary-color);
+  color: var(--white-color);
+  text-decoration: none;
+  border-radius: 10px;
+}
+.verify__notFound {
+  font-size: 40px;
+  color: var(--red-color);
+}
+/* END VERIFY USER FORM */

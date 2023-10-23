@@ -4,5 +4,5 @@ const { registerUser, loginUser, verifyUser } = require('../controllers/auth.con
 
 router.route('/register').post(registerUser);
 router.route('/login').post(loginUser);
-router.route('/:userId/verify/:token').get(verifyUser);
+router.route('/verify-user/:userId/:token').get(verifyUser);
 module.exports = router;

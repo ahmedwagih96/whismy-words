@@ -53,49 +53,46 @@ const loginUser = async (req, res) => {
     // validation
     const { error } = validateLoginUser(req.body)
     if (error) {
-        return res.status(StatusCodes.BAD_REQUEST).json({ message: error.details[0].message })
+        return res.status(StatusCodes.BAD_REQUEST).json({ error: error.details[0].message })
     }
 
     // is user exist 
     const user = await User.findOne({ email: req.body.email });
     if (!user) {
-        return res.status(StatusCodes.BAD_REQUEST).json({ message: "Invalid email or password" })
+        return res.status(StatusCodes.UNAUTHORIZED).json({ error: "Invalid email or password" })
     }
 
     // check credentials
     const isPasswordMatch = await bcrypt.compare(req.body.password, user.password)
     if (!isPasswordMatch) {
-        return res.status(StatusCodes.BAD_REQUEST).json({ message: "Invalid email or password" })
+        return res.status(StatusCodes.UNAUTHORIZED).json({ error: "Invalid email or password" })
     }
 
     // if the account is not verified 
     if (!user.isAccountVerified) {
-        let verificationToken = VerificationToken.findOne({ userId: user._id })
-
+        let verificationToken = await VerificationToken.findOne({ userId: user._id })
         if (!verificationToken) {
-            // Create Verification Token
+            // Create Verification Token 
             verificationToken = new VerificationToken({
                 userId: user._id,
                 token: crypto.randomBytes(32).toString("hex")
             })
             await verificationToken.save()
         }
-
         await sendVerifyEmail(user._id, verificationToken.token, user.email)
-
-        res.status(StatusCodes.BAD_REQUEST).json({ message: `Email not Verified. We have sent an email to ${user.email}. Please activate your account!` })
+        res.status(StatusCodes.BAD_REQUEST).json({ error: `Email not Verified. We have sent an email to ${user.email}. Please activate your account then log in again!` })
+    } else {
+        // generate token (jwt)
+        const token = user.generateToken();
+        // response to client 
+        res.status(StatusCodes.OK).json({
+            id: user.id,
+            isAdmin: user.isAdmin,
+            image: user.profilePhoto.url,
+            name: user.username,
+            token,
+        })
     }
-
-    // generate token (jwt)
-    const token = user.generateToken();
-    // response to client 
-    res.status(StatusCodes.OK).json({
-        id: user.id,
-        isAdmin: user.isAdmin,
-        image: user.profilePhoto.url,
-        name: user.username,
-        token,
-    })
 }
 
 /**-----------------------------------------------------
@@ -115,7 +112,9 @@ const verifyUser = async (req, res) => {
         userId,
         token
     })
-    if (!verificationToken) return res.status(StatusCodes.BAD_REQUEST).json({ message: 'Invalid link' });
+    if (!verificationToken) {
+        return res.status(StatusCodes.BAD_REQUEST).json({ message: 'Invalid link' });
+    }
 
     user.isAccountVerified = true;
     await user.save();

@@ -57,6 +57,7 @@ export default function useAuthentication() {
     if (authForm.email.trim() === "") return toast.error("Email is required");
     if (authForm.password.trim() === "")
       return toast.error("Password is required");
+
     setLoading(true);
     // SIGN IN WITH NEXT-AUTH
     const res = await signIn("credentials", {
@@ -64,17 +65,18 @@ export default function useAuthentication() {
       password: authForm.password,
       redirect: false,
     });
-    // IF SUCCESSFUL REDIRECT TO HOME PAGE / ELSE SHOW TOAST MESSAGE WITH
-    if (!res?.error) {
+    setLoading(false);
+    if (res?.error) {
+      Swal.fire({
+        icon: "error",
+        text: res.error,
+      });
+    } else {
       router.refresh();
       setAuthForm(authFormInitialState);
-    } else {
-      toast.error("Invalid User Name or Password");
     }
-    setLoading(false);
   };
 
-  
   // LOG OUT
   const logoutHandler = () => {
     // SIGN OUT WITH NEXT-AUTH

@@ -20,10 +20,18 @@ export const authOptions: NextAuthOptions = {
           email: string;
           password: string;
         };
-        const { data } = await request.post("/api/auth/login", {
-          email,
-          password,
-        });
+        const data = await request
+          .post("/api/auth/login", {
+            email,
+            password,
+          })
+          .then(({ data }) => {
+            return data;
+          })
+          .catch((error) => {
+            throw new Error(JSON.stringify(error.response.data.error));
+          });
+
         return data;
       },
     }),

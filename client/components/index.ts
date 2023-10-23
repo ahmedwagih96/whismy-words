@@ -10,4 +10,15 @@ import Footer from "@/components/Footer";
 // Forms
 import RegisterForm from "./Forms/RegisterForm";
 import LoginForm from "./Forms/LoginForm";
-export { Header, HeaderRight, AuthLinks, Footer, RegisterForm, LoginForm, User, Dropdown };
+import ResetPasswordForm from "./Forms/ResetPasswordForm";
+export {
+  Header,
+  HeaderRight,
+  AuthLinks,
+  Footer,
+  RegisterForm,
+  LoginForm,
+  User,
+  Dropdown,
+  ResetPasswordForm,
+};

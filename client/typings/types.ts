@@ -6,3 +6,9 @@ export interface AuthForm {
 }
 
 export type Params = string | string[];
+
+export interface ResetPasswordForm {
+  email: string;
+  password: string;
+  verifyPassword: string;
+}

@@ -36,7 +36,7 @@ export async function deleteProfile(
 // Verify User {SSR}
 export async function verifyUser(userId: Params, token: Params) {
   try {
-    await request.get(`/api/auth/${userId}/verify/${token}`);
+    await request.get(`/api/auth/verify-user/${userId}/${token}`);
   } catch (error: any) {
     const message = `${error.response.status} - ${error.response.data.message}`;
     throw new Error(message);
