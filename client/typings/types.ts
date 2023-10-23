@@ -12,3 +12,11 @@ export interface ResetPasswordForm {
   password: string;
   verifyPassword: string;
 }
+
+export interface SearchParamsType {
+  category: string;
+  limit: string;
+  sort: string;
+  pageNumber: string
+  
+}
