@@ -78,3 +78,43 @@ textarea:focus {
   background-color: var(--primary-color);
 }
 /* END ERRORS */
+
+/* START MODAL */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.modal__container {
+  width: 80%;
+  max-width: 700px;
+  background-color: var(--main-color);
+  padding: 15px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.modal__closeIcon {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: var(--red-color);
+  cursor: pointer;
+  height: 30px;
+}
+.modal__title {
+  margin-bottom: 10px;
+  font-size: 24px;
+  color: var(--green-sea-color);
+  text-align: center;
+}
+/* END MODAL */

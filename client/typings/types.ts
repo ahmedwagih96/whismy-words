@@ -17,6 +17,10 @@ export interface SearchParamsType {
   category: string;
   limit: string;
   sort: string;
-  pageNumber: string
-  
+  pageNumber: string;
+}
+
+export interface PostData {
+  title: string;
+  description: string;
 }

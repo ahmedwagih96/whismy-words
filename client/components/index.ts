@@ -11,14 +11,17 @@ import Pagination from "./Home/Pagination";
 import Sidebar from "./Home/Sidebar";
 import Posts from "./Posts";
 import PostItem from "./Posts/PostItem";
+import CreatePost from "./Home/CreatePost";
 // Forms
 import RegisterForm from "./Forms/RegisterForm";
 import LoginForm from "./Forms/LoginForm";
 import ResetPasswordForm from "./Forms/ResetPasswordForm";
+import CreatePostForm from "./Forms/CreatePostForm";
 
 // Reusable Components
 import Categories from "./Categories";
 import SelectBox from "./SelectBox";
+import Modal from "./Modal";
 export {
   Header,
   HeaderRight,
@@ -34,5 +37,8 @@ export {
   Categories,
   SelectBox,
   Posts,
-  PostItem
+  PostItem,
+  CreatePost,
+  CreatePostForm,
+  Modal,
 };
