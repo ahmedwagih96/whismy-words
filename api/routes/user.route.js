@@ -8,8 +8,8 @@ const { photoUpdate } = require("../middleware/mediaHandling.js");
 router.route('/profile').get(verifyAdmin, getAllUsers);
 router.route('/profile/:id')
     .get(validateId, getUser)
-    .delete(validateId, verifyUserAccess, updateUser)
-    .put(validateId, verifyUserAccess, photoUpdate.single("image"), deleteUser)
+    .delete(validateId, verifyUserAccess, deleteUser)
+    .put(validateId, verifyUserAccess, photoUpdate.single("image"), updateUser)
 router.route('/count').get(verifyAdmin, getUsersCount);
 
 module.exports = router;

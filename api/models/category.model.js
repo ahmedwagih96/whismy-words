@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { CategorySchema } = require("../schemas/category.schema.js");
+const Joi = require('joi');
 
 const Category = mongoose.model("Category", CategorySchema);
 

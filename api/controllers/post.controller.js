@@ -6,7 +6,7 @@ const { cloudinaryUploadImage, cloudinaryRemoveImage } = require('../utils/cloud
 const { StatusCodes } = require("http-status-codes");
 
 /**-----------------------------------------------------
-    * @desc  Get All Posts
+    * @desc  Get Posts By Queries 
     * @route /api/posts
     * @method GET
     * @access public
@@ -43,6 +43,16 @@ const getPostsByQueries = async (req, res) => {
     res.status(StatusCodes.OK).json({ posts, postsCount })
 }
 
+/**-----------------------------------------------------
+    * @desc  Get All Posts
+    * @route /api/posts/all-posts
+    * @method GET
+    * @access private (only admin)
+-----------------------------------------------------*/
+const getAllPosts = async (req, res) => {
+    const posts = await Post.find({}).populate("user", ['-password'])
+    res.status(StatusCodes.OK).json({ posts })
+}
 /**-----------------------------------------------------
     * @desc  Get Post
     * @route /api/posts/:id
@@ -239,4 +249,4 @@ const toggleLike = async (req, res) => {
 }
 
 
-module.exports = { getPostsByQueries, getPost, getPostsCount, createPost, deletePost, updatePost, toggleLike }
+module.exports = { getPostsByQueries, getPost, getPostsCount, createPost, deletePost, updatePost, toggleLike, getAllPosts }

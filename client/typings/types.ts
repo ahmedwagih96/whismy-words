@@ -24,3 +24,8 @@ export interface PostData {
   title: string;
   description: string;
 }
+
+export interface Loading {
+  status: boolean;
+  id: string | null;
+}

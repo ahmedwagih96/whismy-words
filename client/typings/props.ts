@@ -20,3 +20,9 @@ interface options {
   title: string;
   value: string;
 }
+
+export interface AdminCardProps {
+  title: string;
+  count: number;
+  Icon: React.ElementType;
+}
