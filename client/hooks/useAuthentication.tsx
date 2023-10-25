@@ -1,8 +1,8 @@
 "use client";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { registerUser } from "@/utils/auth";
+import { registerUser, deleteUser } from "@/utils/auth";
 import { useRouter } from "next/navigation";
-import { signIn, signOut } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { AuthForm } from "@/typings/types";
@@ -10,7 +10,9 @@ import { authFormInitialState } from "@/constants";
 
 export default function useAuthentication() {
   const router = useRouter();
-
+  const { data: session } = useSession();
+  const userId = session?.user?.id;
+  const token = session?.user?.token;
   // State
   const [authForm, setAuthForm] = useState<AuthForm>(authFormInitialState);
   const [loading, setLoading] = useState<boolean>(false);
@@ -85,12 +87,43 @@ export default function useAuthentication() {
     router.push("/auth/login");
   };
 
+  // DELETE USER
+  const deleteUserHandler = () => {
+    // VALIDATION MODAL
+    Swal.fire({
+      title: "Are you sure?",
+      text: "This account will be permanently deleted!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (isOk) => {
+      if (isOk.isConfirmed) {
+        // IF CONFIRMED TO DELETED USER SET LOADING TO TRUE
+        setLoading(true);
+        // DELETE USER FROM DB
+        const message = await deleteUser(userId, token);
+        // IF SUCCESSFUL SET LOADING TO FALSE AND LOG OUT THE USER
+        if (message) {
+          setLoading(false);
+          Swal.fire("Account Deleted!", "success").then((isOk) => {
+            if (isOk) {
+              logoutHandler();
+            }
+          });
+        }
+      }
+    });
+  };
+
   return {
     logoutHandler,
     registerHandler,
     loginHandler,
     handleAuthForm,
     setLoading,
+    deleteUserHandler,
     loading,
     authForm,
   };

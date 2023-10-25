@@ -29,3 +29,10 @@ export interface Loading {
   status: boolean;
   id: string | null;
 }
+
+export interface UserData {
+  username: string;
+  bio: string;
+  password: string;
+  verifyPassword: string;
+}

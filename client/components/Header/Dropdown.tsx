@@ -20,7 +20,7 @@ function Dropdown({
     <ul className="header__dropdown">
       <li
         onClick={() => {
-          router.push(`/profile/${session?.user?.id}`);
+          router.push(`/users/${session?.user?.id}`);
           setDropDown(false);
         }}
         className="header__dropdown-item"

@@ -5,8 +5,8 @@ const { getAllUsers, getUser, getUsersCount, deleteUser, updateUser } = require(
 const { verifyAdmin, verifyUserAccess } = require("../middleware/authentication.js");
 const { validateId } = require("../middleware/validateObjectId.js")
 const { photoUpdate } = require("../middleware/mediaHandling.js");
-router.route('/profile').get(verifyAdmin, getAllUsers);
-router.route('/profile/:id')
+router.route('/all').get(verifyAdmin, getAllUsers);
+router.route('/:id')
     .get(validateId, getUser)
     .delete(validateId, verifyUserAccess, deleteUser)
     .put(validateId, verifyUserAccess, photoUpdate.single("image"), updateUser)

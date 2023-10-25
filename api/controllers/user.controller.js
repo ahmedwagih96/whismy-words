@@ -9,7 +9,7 @@ const { Post } = require("../models/post.model.js");
 
 /**-----------------------------------------------------
     * @desc Get All Users
-    * @route /api/users/profile
+    * @route /api/users/all
     * @method GET
     * @access private (only admin)
 -----------------------------------------------------*/
@@ -22,8 +22,8 @@ const getAllUsers = async (req, res) => {
 }
 
 /**-----------------------------------------------------
-    * @desc Get user profile
-    * @route /api/users/profile/:id
+    * @desc Get User
+    * @route /api/users/:id
     * @method GET
     * @access public
 -----------------------------------------------------*/
@@ -51,8 +51,8 @@ const getUsersCount = async (req, res) => {
 }
 
 /**-----------------------------------------------------
-    * @desc Update user profile
-    * @route /api/users/profile/:id
+    * @desc Update User
+    * @route /api/users/:id
     * @method PUT
     * @access private (only user himself)
 -----------------------------------------------------*/
@@ -89,21 +89,23 @@ const updateUser = async (req, res) => {
         fs.unlinkSync(imagePath);
     }
 
-    await User.findByIdAndUpdate(req.params.id, {
+    const user = await User.findByIdAndUpdate(req.params.id, {
         $set: {
             username: req.body.username,
             password: req.body.password,
             bio: req.body.bio,
             profilePhoto: req.body.profilePhoto
         }
+    }, {
+        new: true
     })
-    res.status(StatusCodes.OK).json({ message: 'Your profile has been updated' })
+    res.status(StatusCodes.OK).json({ message: 'Your profile has been updated', user })
 }
 
 
 /**-----------------------------------------------------
-    * @desc  Delete User Profile
-    * @route /api/users/profile/:id
+    * @desc  Delete User
+    * @route /api/users/:id
     * @method DELETE
     * @access private (only admin or user)
 -----------------------------------------------------*/

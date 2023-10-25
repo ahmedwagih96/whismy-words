@@ -118,3 +118,61 @@ textarea:focus {
   text-align: center;
 }
 /* END MODAL */
+
+/* START KEBAB MENU */
+.kebab {
+  position: absolute;
+  top: 20px;
+  right: 10px;
+  width: 200px;
+  text-align: right;
+  z-index: 20;
+}
+.kebab__icon {
+  color: var(--white-color);
+  cursor: pointer;
+  height: 25px;
+}
+.kebab__dropdown {
+  margin-top: 10px;
+  background-color: var(--main-color);
+  border: 1px solid var(--white-color);
+  border-radius: 10px;
+  text-align: left;
+}
+.kebab__dropdown-item {
+  color: var(--primary-color);
+  font-size: 21px;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: 0.2s;
+  padding: 5px 10px;
+}
+.kebab__dropdown-item .editIcon {
+  margin-right: 0;
+}
+.kebab__dropdown-item:hover {
+  color: var(--blue-color);
+  padding-left: 15px;
+}
+
+/* END KEBAB MENU */
+
+/* START ICONS */
+.editIcon {
+  color: var(--green-sea-color);
+  margin-right: 15px;
+  cursor: pointer;
+  height: 20px;
+}
+
+.deleteIcon {
+  height: 20px;
+  cursor: pointer;
+  color: var(--red-color);
+}
+/* DELETE ICONS */

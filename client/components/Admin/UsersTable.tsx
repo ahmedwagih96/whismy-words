@@ -37,7 +37,7 @@ const UsersTable = ({ allProfiles }: { allProfiles: UserType[] }) => {
                 <td>
                   <div className="table__button-group">
                     <button>
-                      <Link href={`/profile/${profile._id}`}>View Profile</Link>
+                      <Link href={`/users/${profile._id}`}>View Profile</Link>
                     </button>
                     <button
                       type="button"

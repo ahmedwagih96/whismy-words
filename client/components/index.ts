@@ -22,12 +22,17 @@ import CategoriesTable from "./Admin/CategoriesTable";
 import PostsTable from "./Admin/PostsTable";
 import CommentsTable from "./Admin/CommentsTable";
 
+// USER PAGE
+import UserInfo from "./User/UserInfo";
+import EditUser from "./User/EditUser";
+
 // Forms
 import RegisterForm from "./Forms/RegisterForm";
 import LoginForm from "./Forms/LoginForm";
 import ResetPasswordForm from "./Forms/ResetPasswordForm";
 import CreatePostForm from "./Forms/CreatePostForm";
 import AddCategoryForm from "./Forms/AddCategoryForm";
+import UpdateUserForm from "./Forms/UpdateUserForm";
 // Reusable Components
 import Categories from "./Categories";
 import SelectBox from "./SelectBox";
@@ -58,4 +63,7 @@ export {
   CommentsTable,
   CategoriesTable,
   PostsTable,
+  UserInfo,
+  UpdateUserForm,
+  EditUser,
 };

@@ -15,7 +15,7 @@ function PostItem({ post }: { post: PostType }) {
         <div className="post__info">
           <div className="post__author">
             <strong>Author: </strong>
-            <Link href={`/profile/${post?.user?._id}`}>{post?.user?.username}</Link>
+            <Link href={`/users/${post?.user?._id}`}>{post?.user?.username}</Link>
           </div>
           <div className="post__date">
             {new Date(post?.createdAt!).toDateString()}

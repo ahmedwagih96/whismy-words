@@ -50,7 +50,7 @@ export const deletePost = async (postId: string, token: string | undefined) => {
 // Get All Profiles {SSR}
 export async function fetchAllProfiles(token: string | undefined) {
   try {
-    const { data } = await request.get(`/api/users/profile/`, {
+    const { data } = await request.get(`/api/users/all/`, {
       headers: {
         Authorization: "Bearer " + token,
       },
@@ -65,7 +65,7 @@ export async function fetchAllProfiles(token: string | undefined) {
 // Delete Profile
 export const deleteProfile = async (id: string, token: string | undefined) => {
   try {
-    const { data } = await request.delete(`/api/users/profile/${id}`, {
+    const { data } = await request.delete(`/api/users/${id}`, {
       headers: {
         Authorization: "Bearer " + token,
       },

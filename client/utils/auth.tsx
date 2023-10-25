@@ -17,12 +17,12 @@ export async function registerUser(user: {
 }
 
 // Delete User
-export async function deleteProfile(
+export async function deleteUser(
   id: string | undefined,
   token: string | undefined
 ) {
   try {
-    const { data } = await request.delete(`/api/users/profile/${id}`, {
+    const { data } = await request.delete(`/api/users/${id}`, {
       headers: {
         Authorization: "Bearer " + token,
       },
