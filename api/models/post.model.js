@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 const { PostSchema } = require('../schemas/post.schema.js')
-
+const Joi = require('joi');
 const Post = mongoose.model("Post", PostSchema);
 
 function validateUpdatePost(obj) {

@@ -66,16 +66,19 @@ const createComment = async (req, res) => {
 -----------------------------------------------------*/
 
 const updateComment = async (req, res) => {
-    // check if the comment belongs to the user
-    if (req.user.id !== comment.user.toString()) {
-        return res.status(StatusCodes.FORBIDDEN).json({ message: "Access Denied" })
-    }
+
     // validate comment 
     const { error } = validateUpdateComment(req.body);
     if (error) {
         return res.status(StatusCodes.BAD_REQUEST).json({ message: error.details[0].message })
     }
     const comment = await Comment.findById(req.params.id)
+
+    // check if the comment belongs to the user
+    if (req.user.id !== comment.user.toString()) {
+        return res.status(StatusCodes.FORBIDDEN).json({ message: "Access Denied" })
+    }
+    
     if (!comment) {
         return res.status(StatusCodes.NOT_FOUND).json({ message: 'Comment not found' })
     }
