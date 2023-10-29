@@ -3,6 +3,7 @@ import useComment from "@/hooks/useComment";
 import { CommentType } from "@/typings/mongoTypes";
 import { Dispatch, SetStateAction } from "react";
 import { useEffect, useRef } from "react";
+import { LoadingIcon } from "..";
 function UpdateCommentForm({
   setModal,
   comment,
@@ -38,7 +39,7 @@ function UpdateCommentForm({
       />
       <div>
         <button className="update__btn btn" type="submit" disabled={loading}>
-          {loading ? "Updating..." : "Update"}
+          {loading ? <LoadingIcon /> : "Update"}
         </button>
         <button
           className="cancel__btn btn"

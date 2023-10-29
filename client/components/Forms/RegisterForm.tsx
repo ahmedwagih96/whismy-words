@@ -5,6 +5,7 @@ import {
   UserCircleIcon,
   LockClosedIcon,
 } from "@heroicons/react/24/solid";
+import { LoadingIcon } from "..";
 function RegisterForm() {
   const { registerHandler, authForm, loading, handleAuthForm } =
     useAuthentication();
@@ -75,7 +76,7 @@ function RegisterForm() {
         </div>
       </div>
       <button disabled={loading} type="submit" className="authForm__btn">
-        {loading ? "Registering..." : "Register"}
+        {loading ? <LoadingIcon /> : "Register"}
       </button>
     </form>
   );

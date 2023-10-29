@@ -1,5 +1,6 @@
 "use client";
 import useAdminDashboard from "@/hooks/useAdminDashboard";
+import { LoadingIcon } from "..";
 function AddCategoryForm() {
   const { createCategoryHandler, category, setCategory, isAddingCategory } =
     useAdminDashboard();
@@ -27,7 +28,7 @@ function AddCategoryForm() {
           className="addCategory__btn"
           disabled={isAddingCategory}
         >
-          {isAddingCategory ? "Adding..." : "Add Category"}
+          {isAddingCategory ? <LoadingIcon /> : "Add Category"}
         </button>
       </form>
     </div>

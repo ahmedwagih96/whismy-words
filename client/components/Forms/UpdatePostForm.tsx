@@ -6,7 +6,7 @@ import {
   XCircleIcon,
   PhotoIcon,
 } from "@heroicons/react/24/solid";
-import { Categories } from "@/components";
+import { Categories, LoadingIcon } from "@/components";
 function UpdatePostForm({
   post,
   setModal,
@@ -79,7 +79,7 @@ function UpdatePostForm({
         )}
       </div>
       <button className="create__btn" disabled={loading} type="submit">
-        {loading ? "Publishing..." : "Publish"}
+        {loading ? <LoadingIcon /> : "Publish"}
       </button>
     </form>
   );

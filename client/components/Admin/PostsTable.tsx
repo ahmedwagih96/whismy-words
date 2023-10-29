@@ -2,6 +2,7 @@
 import Link from "next/link";
 import useAdminDashboard from "@/hooks/useAdminDashboard";
 import { PostType } from "@/typings/mongoTypes";
+import { LoadingIcon } from "..";
 const PostsTable = ({ allPosts }: { allPosts: PostType[] }) => {
   const { deletePostHandler, loading } = useAdminDashboard();
   return (
@@ -49,9 +50,11 @@ const PostsTable = ({ allPosts }: { allPosts: PostType[] }) => {
                       onClick={() => deletePostHandler(post?._id)}
                       disabled={loading.status}
                     >
-                      {loading.status && loading.id === post?._id
-                        ? "Deleting..."
-                        : "Delete Post"}
+                      {loading.status && loading.id === post?._id ? (
+                        <LoadingIcon />
+                      ) : (
+                        "Delete Post"
+                      )}
                     </button>
                   </div>
                 </td>

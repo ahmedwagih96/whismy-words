@@ -47,6 +47,8 @@ import UpdateCommentForm from "./Forms/UpdateCommentForm";
 import Categories from "./Categories";
 import SelectBox from "./SelectBox";
 import Modal from "./Modal";
+import LoadingIcon from "./LoadingIcon";
+
 export {
   Header,
   HeaderRight,
@@ -84,4 +86,5 @@ export {
   LikeButton,
   UpdatePostForm,
   UpdateCommentForm,
+  LoadingIcon
 };

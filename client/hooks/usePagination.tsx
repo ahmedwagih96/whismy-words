@@ -1,11 +1,9 @@
 import { useEffect, useMemo, useState } from "react";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
+import { useSearchParams, usePathname } from "next/navigation";
 
 function usePagination(postsCount: number) {
-  const router = useRouter();
   const params = useSearchParams();
   const pathname = usePathname();
-  const [firstMount, setFirsMount] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(
     Number(params.get("pageNumber")) || 1
   );
@@ -24,17 +22,15 @@ function usePagination(postsCount: number) {
     return pages;
   }, [postsCount, limit]);
 
-  useEffect(() => {
+  const getPath = (page: number) => {
     const current = new URLSearchParams(Array.from(params.entries()));
-    if (!firstMount) {
-      current.set("pageNumber", currentPage.toString());
-      const query = current.toString();
-      router.push(`${pathname}?${query}`);
-    }
-    if (firstMount) setFirsMount(false);
-  }, [currentPage]);
+    current.set("pageNumber", page.toString());
+    const query = current.toString();
+    return `${pathname}?${query}`;
+  };
 
   return {
+    getPath,
     setCurrentPage,
     paginationButtons,
     currentPage,

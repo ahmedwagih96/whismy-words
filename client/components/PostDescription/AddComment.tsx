@@ -1,5 +1,6 @@
 "use client";
 import useComment from "@/hooks/useComment";
+import { LoadingIcon } from "..";
 const AddComment = ({ postId }: { postId: string }) => {
   const { loading, addCommentHandler, updatedComment, setUpdatedComment } =
     useComment();
@@ -14,7 +15,7 @@ const AddComment = ({ postId }: { postId: string }) => {
         onChange={(e) => setUpdatedComment(e.target.value)}
       />
       <button disabled={loading} type="submit" className="addComment__btn">
-        {loading ? "Submitting..." : "Submit"}
+        {loading ? <LoadingIcon /> : "Submit"}
       </button>
     </form>
   );

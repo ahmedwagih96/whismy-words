@@ -1,6 +1,7 @@
 "use client";
 import { CategoryType } from "@/typings/mongoTypes";
 import useAdminDashboard from "@/hooks/useAdminDashboard";
+import { LoadingIcon } from "..";
 
 const CategoriesTable = ({
   allCategories,
@@ -36,9 +37,11 @@ const CategoriesTable = ({
                       onClick={() => deleteCategoryHandler(category._id)}
                       disabled={loading.status}
                     >
-                      {loading.status && loading.id === category._id
-                        ? "Deleting..."
-                        : "Delete Category"}
+                      {loading.status && loading.id === category._id ? (
+                        <LoadingIcon />
+                      ) : (
+                        "Delete Category"
+                      )}
                     </button>
                   </div>
                 </td>

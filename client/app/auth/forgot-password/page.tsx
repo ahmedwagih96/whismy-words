@@ -2,6 +2,7 @@
 import "../auth.css";
 import { EnvelopeOpenIcon } from "@heroicons/react/24/solid";
 import useResetPassword from "@/hooks/useResetPassword";
+import { LoadingIcon } from "@/components";
 const ForgotPassword = () => {
   const { resetPasswordForm, forgotPasswordHandler, loading, handleChange } =
     useResetPassword();
@@ -28,7 +29,7 @@ const ForgotPassword = () => {
           </div>
 
           <button disabled={loading} type="submit" className="authForm__btn">
-            {loading ? "Sending..." : "Submit"}
+            {loading ? <LoadingIcon /> : "Submit"}
           </button>
         </form>
       </section>

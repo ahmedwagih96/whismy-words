@@ -1,35 +1,42 @@
 "use client";
 import usePagination from "@/hooks/usePagination";
-
+import Link from "next/link";
 const Pagination = ({ postsCount }: { postsCount: number }) => {
-  const { paginationButtons, currentPage, setCurrentPage, paginationCount } =
-    usePagination(postsCount);
+  const {
+    paginationButtons,
+    currentPage,
+    setCurrentPage,
+    paginationCount,
+    getPath,
+  } = usePagination(postsCount);
   return (
     <div className="pagination">
-      <button
-        disabled={currentPage === 1}
-        className="page previous"
+      <Link
+        href={getPath(currentPage - 1)}
+        className={`page previous ${currentPage === 1 ? "disabled" : ""}`}
         onClick={() => setCurrentPage((prev) => prev - 1)}
       >
         Previous
-      </button>
+      </Link>
       {paginationButtons.map((page) => (
-        <button
-          disabled={currentPage === page}
+        <Link
+          href={getPath(page)}
           className={`page ${page === currentPage ? "active" : ""}`}
           key={page}
           onClick={() => setCurrentPage(page)}
         >
           {page}
-        </button>
+        </Link>
       ))}
-      <button
-        disabled={currentPage === paginationCount}
+      <Link
+        href={getPath(currentPage + 1)}
         onClick={() => setCurrentPage((prev) => prev + 1)}
-        className="page next"
+        className={`page next ${
+          currentPage === paginationCount ? "disabled" : ""
+        }`}
       >
         Next
-      </button>
+      </Link>
     </div>
   );
 };

@@ -8,6 +8,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { useRouter } from "next/navigation";
 import { Dispatch, SetStateAction } from "react";
+import Link from "next/link";
 function Dropdown({
   setDropDown,
 }: {
@@ -18,27 +19,27 @@ function Dropdown({
   const router = useRouter();
   return (
     <ul className="header__dropdown">
-      <li
+      <Link
+        href={`/users/${session?.user?.id}`}
         onClick={() => {
-          router.push(`/users/${session?.user?.id}`);
           setDropDown(false);
         }}
         className="header__dropdown-item"
       >
         <UserIcon />
         <span>Profile</span>
-      </li>
+      </Link>
       {session?.user?.isAdmin ? (
-        <li
+        <Link
+          href={"/admin"}
           className="header__dropdown-item"
           onClick={() => {
             setDropDown(false);
-            router.push("/admin");
           }}
         >
           <CheckBadgeIcon />
           Admin
-        </li>
+        </Link>
       ) : null}
       <li
         onClick={() => {

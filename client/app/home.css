@@ -99,6 +99,9 @@
 .active {
   background-color: var(--gray-color);
 }
+.disabled{
+  pointer-events: none;
+}
 button:disabled {
   cursor: not-allowed;
 }

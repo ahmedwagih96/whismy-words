@@ -9,6 +9,7 @@ import {
   BookOpenIcon,
 } from "@heroicons/react/24/solid";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
+import { LoadingIcon } from "..";
 function UpdateUserForm({
   user,
   setUpdateModal,
@@ -124,7 +125,7 @@ function UpdateUserForm({
         </div>
       </div>
       <button disabled={loading} className="edit__btn" type="submit">
-        {loading ? "Saving..." : "Save"}
+        {loading ? <LoadingIcon /> : "Save"}
       </button>
     </form>
   );

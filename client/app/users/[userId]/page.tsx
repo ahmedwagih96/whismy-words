@@ -7,8 +7,14 @@ async function page({ params }: { params: { userId: string } }) {
     <main className="user">
       <UserInfo user={user} />
       <div className="user__postsList">
-        <h2 className="user__postsList__title">{user?.username} Posts</h2>
-        <Posts posts={user?.posts} />
+        <h2 className="user__postsList__title">{user?.username}'s Posts</h2>
+        {user?.posts.length > 0 ? (
+          <Posts posts={user?.posts} />
+        ) : (
+          <div className="no__posts">
+            No <span>Posts</span> {" "}By ahmed {user?.username}
+          </div>
+        )}
       </div>
     </main>
   );

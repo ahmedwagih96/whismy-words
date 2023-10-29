@@ -1,6 +1,7 @@
 "use client";
 import useResetPassword from "@/hooks/useResetPassword";
 import { LockClosedIcon } from "@heroicons/react/24/solid";
+import { LoadingIcon } from "..";
 function ResetPasswordForm() {
   const { resetPasswordHandler, resetPasswordForm, handleChange, loading } =
     useResetPassword();
@@ -40,7 +41,7 @@ function ResetPasswordForm() {
       </div>
 
       <button type="submit" disabled={loading} className="authForm__btn">
-        {loading ? "Sending..." : "Submit"}
+        {loading ? <LoadingIcon /> : "Submit"}
       </button>
     </form>
   );

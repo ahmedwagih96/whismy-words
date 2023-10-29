@@ -1,6 +1,6 @@
 "use client";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
-import { Categories } from "@/components";
+import { Categories, LoadingIcon } from "@/components";
 import useCreatePost from "@/hooks/useCreatePost";
 import {
   PaperClipIcon,
@@ -72,7 +72,7 @@ function CreatePostForm({
       ) : null}
 
       <button type="submit" className="create__btn" disabled={loading}>
-        {loading ? "Publishing..." : "Publish"}
+        {loading ? <LoadingIcon /> : "Publish"}
       </button>
     </form>
   );

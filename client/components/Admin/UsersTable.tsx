@@ -2,6 +2,7 @@
 import Link from "next/link";
 import useAdminDashboard from "@/hooks/useAdminDashboard";
 import { UserType } from "@/typings/mongoTypes";
+import { LoadingIcon } from "..";
 const UsersTable = ({ allProfiles }: { allProfiles: UserType[] }) => {
   const { deleteProfileHandler, loading } = useAdminDashboard();
   return (
@@ -45,9 +46,11 @@ const UsersTable = ({ allProfiles }: { allProfiles: UserType[] }) => {
                       onClick={() => deleteProfileHandler(profile._id)}
                       disabled={loading.status}
                     >
-                      {loading.status && loading.id === profile._id
-                        ? "Deleting..."
-                        : "Delete Profile"}
+                      {loading.status && loading.id === profile._id ? (
+                        <LoadingIcon />
+                      ) : (
+                        "Delete Profile"
+                      )}
                     </button>
                   </div>
                 </td>

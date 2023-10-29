@@ -1,6 +1,7 @@
 "use client";
 import useAdminDashboard from "@/hooks/useAdminDashboard";
 import { CommentType } from "@/typings/mongoTypes";
+import { LoadingIcon } from "..";
 
 const CommentsTable = ({ allComments }: { allComments: CommentType[] }) => {
   const { deleteCommentHandler, loading } = useAdminDashboard();
@@ -42,9 +43,11 @@ const CommentsTable = ({ allComments }: { allComments: CommentType[] }) => {
                       onClick={() => deleteCommentHandler(comment._id)}
                       disabled={loading.status}
                     >
-                      {loading.status && loading.id === comment._id
-                        ? "Deleting..."
-                        : "Delete Comment"}
+                      {loading.status && loading.id === comment._id ? (
+                        <LoadingIcon />
+                      ) : (
+                        "Delete Comment"
+                      )}
                     </button>
                   </div>
                 </td>

@@ -2,6 +2,7 @@
 import useAuthentication from "@/hooks/useAuthentication";
 import { EnvelopeOpenIcon, LockClosedIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
+import { LoadingIcon } from "..";
 function LoginForm() {
   const { loginHandler, authForm, loading, handleAuthForm } =
     useAuthentication();
@@ -43,7 +44,7 @@ function LoginForm() {
         <Link href="/auth/forgot-password">Forgot Password?</Link>
       </div>
       <button type="submit" className="authForm__btn" disabled={loading}>
-        {loading ? "Login in..." : "Login"}
+        {loading ? <LoadingIcon /> : "Login"}
       </button>
     </form>
   );
