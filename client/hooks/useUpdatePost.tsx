@@ -27,8 +27,8 @@ function useUpdatePost(
   const [updateModal, setUpdateModal] = useState<boolean>(false);
   const [category, setCategory] = useState<string>(post?.category || "");
   const [postData, setPostData] = useState<PostData>({
-    title: "",
-    description: "",
+    title: post?.title || "",
+    description: post?.description || "",
   });
 
   const handleChange = (

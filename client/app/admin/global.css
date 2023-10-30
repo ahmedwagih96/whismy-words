@@ -1,8 +1,9 @@
 .admin__dashboard {
   display: flex;
   overflow: hidden;
-  width: 100%;
+  max-width: 1200px;
   min-height: calc(100vh - 130px);
+  margin: auto;
 }
 
 .admin {
@@ -197,10 +198,10 @@
   margin-bottom: 20px;
   cursor: pointer;
   display: block;
-  transition: .3s
+  transition: 0.3s;
 }
 
-.admin__sidebar-link:hover{
+.admin__sidebar-link:hover {
   color: var(--green-color);
   padding-left: 15px;
 }
