@@ -4,6 +4,7 @@ const hpp = require('hpp');
 const cors = require("cors");
 const connectDB = require('./db/connect.js')
 const { errorHandler } = require('./middleware/error.js');
+const path = require('path')
 const express = require('express')
 const app = express()
 app.use(express.json());
