@@ -1,13 +1,19 @@
 require('dotenv').config();
+const xss = require('xss-clean')
+const hpp = require('hpp');
+const cors = require("cors");
 const connectDB = require('./db/connect.js')
 const { errorHandler } = require('./middleware/error.js');
 const { notFound } = require('./middleware/not-found.js');
 const express = require('express')
 const app = express()
 app.use(express.json());
-const cors = require("cors");
+app.use(cors());
+// Prevent XSS(Cross Site Scripting) Attacks
+app.use(xss());
+// Protect Http Param Pollution
+app.use(hpp());
 
-app.use(cors())
 // Routes
 app.use('/api/auth', require('./routes/auth.route.js'));
 app.use('/api/users', require('./routes/user.route.js'));
