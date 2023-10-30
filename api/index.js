@@ -4,7 +4,6 @@ const hpp = require('hpp');
 const cors = require("cors");
 const connectDB = require('./db/connect.js')
 const { errorHandler } = require('./middleware/error.js');
-const { notFound } = require('./middleware/not-found.js');
 const express = require('express')
 const app = express()
 app.use(express.json());
@@ -21,10 +20,17 @@ app.use('/api/posts', require('./routes/post.route.js'));
 app.use('/api/comments', require('./routes/comment.route.js'));
 app.use('/api/category', require('./routes/category.route.js'));
 app.use('/api/password', require('./routes/password.route.js'))
-// Not Found
-app.use(notFound)
+
+
+const staticPath = path.join(__dirname, '../client/dist');
+app.use(express.static(staticPath));
+
 // Error Handler Middleware
 app.use(errorHandler);
+
+app.get('*', (req, res) => {
+    res.sendFile(path.join(staticPath, 'index.html'));
+})
 
 // Running The Server
 const PORT = process.env.PORT || 8000
