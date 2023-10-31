@@ -63,6 +63,7 @@
   margin-right: 10px;
   text-transform: capitalize;
   user-select: none;
+  max-width: 150px;
 }
 
 .header__user-photo {

@@ -12,12 +12,20 @@ function LikeButton({ post }: { post: PostType }) {
       {session?.user ? (
         <>
           {post?.likes?.includes(session.user?.id) ? (
-            <Liked onClick={() => toggleLike(post?._id, token)} className="likeIcon"/>
+            <Liked
+              onClick={() => toggleLike(post?._id, token)}
+              className="likeIcon"
+            />
           ) : (
-            <NotLiked onClick={() => toggleLike(post?._id, token)} className="likeIcon"/>
+            <NotLiked
+              onClick={() => toggleLike(post?._id, token)}
+              className="likeIcon"
+            />
           )}
         </>
-      ) : null}
+      ) : (
+        <NotLiked className="likeIcon signedOut" />
+      )}
       <small>{post?.likes?.length}</small>
     </div>
   );

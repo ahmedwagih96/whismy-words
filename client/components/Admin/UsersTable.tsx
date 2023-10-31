@@ -2,7 +2,7 @@
 import Link from "next/link";
 import useAdminDashboard from "@/hooks/useAdminDashboard";
 import { UserType } from "@/typings/mongoTypes";
-import { LoadingIcon } from "..";
+import { TrashIcon } from "@heroicons/react/24/solid";
 const UsersTable = ({ allProfiles }: { allProfiles: UserType[] }) => {
   const { deleteProfileHandler, loading } = useAdminDashboard();
   return (
@@ -12,46 +12,39 @@ const UsersTable = ({ allProfiles }: { allProfiles: UserType[] }) => {
         <table className="table">
           <thead>
             <tr>
-              <th>Count</th>
+              <th className="table__hidden">Count</th>
               <th>User</th>
-              <th>Email</th>
+              <th className="table__hidden">Email</th>
               <th>Action</th>
             </tr>
           </thead>
           <tbody>
             {allProfiles?.map((profile, index) => (
               <tr key={profile._id}>
-                <td>{index + 1}</td>
+                <td className="table__hidden">{index + 1}</td>
                 <td>
                   <div className="table__image">
-                    <img
-                      src={profile.profilePhoto.url}
-                      alt="User Profile Image"
-                      className="table__user-image"
-                    />
-                    <span className="table__username">{profile.username}</span>
+                    <Link href={`/users/${profile._id}`}>
+                      <img
+                        src={profile.profilePhoto.url}
+                        alt="User Profile Image"
+                        className="table__user-image"
+                      />
+                      <span className="table__username">
+                        {profile.username}
+                      </span>
+                    </Link>
                   </div>
                 </td>
-                <td>
+                <td className="table__hidden">
                   <b className="user-email">{profile.email}</b>
                 </td>
                 <td>
-                  <div className="table__button-group">
-                    <button>
-                      <Link href={`/users/${profile._id}`}>View Profile</Link>
-                    </button>
-                    <button
-                      type="button"
-                      className="table__button-group"
+                  <div className="actions">
+                    <TrashIcon
+                      className="deleteIcon"
                       onClick={() => deleteProfileHandler(profile._id)}
-                      disabled={loading.status}
-                    >
-                      {loading.status && loading.id === profile._id ? (
-                        <LoadingIcon />
-                      ) : (
-                        "Delete Profile"
-                      )}
-                    </button>
+                    />
                   </div>
                 </td>
               </tr>

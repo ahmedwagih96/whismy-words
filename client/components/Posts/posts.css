@@ -89,13 +89,12 @@
   color: var(--secondary-color);
   font-weight: 500;
   max-width: 100%;
-  height: 220px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 10;
-  line-clamp: 10;
   -webkit-box-orient: vertical;
+  -webkit-line-clamp: 9;
+  line-clamp: 9;
 }
 
 @media (max-width: 720px) {

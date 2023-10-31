@@ -11,6 +11,12 @@
   text-align: center;
 }
 
+@media (max-width: 720px) {
+  .postDetails__title {
+    font-size: 30px;
+  }
+}
+
 /* START USER DETAILS */
 .postDetails__user-container {
   display: flex;
@@ -51,6 +57,16 @@
   font-weight: 500;
   font-size: 14px;
   color: var(--gray-color);
+}
+
+@media (max-width: 720px) {
+  .postDetails__user a {
+    font-size: 14px;
+  }
+
+  .postDetails__user span {
+    font-size: 12px;
+  }
 }
 
 /* END USER DETAILS */
@@ -112,10 +128,20 @@ form button {
   color: var(--blue-color);
   height: 25px;
 }
+.postDetails__likes .likeIcon.signedOut {
+  cursor: auto;
+}
 .postDetails__description {
   font-size: 21px;
   line-height: 1.8;
   color: var(--primary-color);
+}
+
+@media (max-width: 720px) {
+  .postDetails__description {
+    font-size: 17px;
+    line-height: 1.5;
+  }
 }
 
 .postDetails__icon-wrapper {

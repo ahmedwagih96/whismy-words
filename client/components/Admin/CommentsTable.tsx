@@ -1,10 +1,9 @@
 "use client";
 import useAdminDashboard from "@/hooks/useAdminDashboard";
 import { CommentType } from "@/typings/mongoTypes";
-import { LoadingIcon } from "..";
-
+import { TrashIcon } from "@heroicons/react/24/solid";
 const CommentsTable = ({ allComments }: { allComments: CommentType[] }) => {
-  const { deleteCommentHandler, loading } = useAdminDashboard();
+  const { deleteCommentHandler } = useAdminDashboard();
   return (
     <main className="table__container">
       <div className="table__wrapper">
@@ -12,7 +11,7 @@ const CommentsTable = ({ allComments }: { allComments: CommentType[] }) => {
         <table className="table">
           <thead>
             <tr>
-              <th>Count</th>
+              <th className="table__hidden">Count</th>
               <th>User</th>
               <th>Comment</th>
               <th>Action</th>
@@ -21,7 +20,7 @@ const CommentsTable = ({ allComments }: { allComments: CommentType[] }) => {
           <tbody>
             {allComments?.map((comment, index) => (
               <tr key={comment._id}>
-                <td>{index + 1}</td>
+                <td className="table__hidden">{index + 1}</td>
                 <td>
                   <div className="table__image">
                     <img
@@ -33,22 +32,14 @@ const CommentsTable = ({ allComments }: { allComments: CommentType[] }) => {
                   </div>
                 </td>
                 <td>
-                  <b>{comment.text}</b>
+                  <b className="text-ellipses">{comment.text}</b>
                 </td>
                 <td>
-                  <div className="table__button-group">
-                    <button
-                      type="button"
-                      className="table__button-group"
+                  <div className="actions">
+                    <TrashIcon
+                      className="deleteIcon"
                       onClick={() => deleteCommentHandler(comment._id)}
-                      disabled={loading.status}
-                    >
-                      {loading.status && loading.id === comment._id ? (
-                        <LoadingIcon />
-                      ) : (
-                        "Delete Comment"
-                      )}
-                    </button>
+                    />
                   </div>
                 </td>
               </tr>

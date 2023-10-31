@@ -216,7 +216,6 @@
 /* START ADMIN TABLES */
 .table__container {
   display: flex;
-  height: calc(100vh - 130px);
   overflow: hidden;
 }
 
@@ -224,6 +223,7 @@
   flex: 10;
   padding: 20px;
   overflow-y: scroll;
+  overflow-x: auto;
 }
 
 .table__title {
@@ -239,6 +239,12 @@
   width: 100%;
   text-align: left;
   border-collapse: collapse;
+}
+
+@media (max-width: 720px) {
+  .table__hidden {
+    display: none;
+  }
 }
 
 th,
@@ -265,6 +271,14 @@ tr:hover {
   align-items: center;
 }
 
+.table__container a {
+  color: var(--primary-color);
+}
+
+.table__container a:hover {
+  color: var(--blue-color);
+}
+
 .table__user-image {
   width: 40px;
   height: 40px;
@@ -284,6 +298,20 @@ tr:hover {
   justify-content: space-around;
 }
 
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.text-ellipses {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  line-clamp: 1;
+}
 .table__button-group button {
   border: none;
   background-color: var(--green-color);

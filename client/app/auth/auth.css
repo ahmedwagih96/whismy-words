@@ -9,7 +9,6 @@
   transform: translate(-50%, -50%);
 }
 .authForm__title {
-  margin-top: 20px;
   color: var(--primary-color);
   font-size: 39px;
   line-height: 1.2;
@@ -96,13 +95,6 @@
 .authForm__btn:hover {
   opacity: 0.8;
 }
-
-/* Media Queries */
-@media (max-width: 520px) {
-  .authForm {
-    width: 100%;
-  }
-}
 /* END AUTH FORM */
 
 /* START VERIFY USER PAGE */
@@ -135,3 +127,33 @@
   color: var(--red-color);
 }
 /* END VERIFY USER FORM */
+
+/* Media Queries */
+@media (max-width: 520px) {
+  .authForm {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .authForm__container {
+    width: 80%;
+  }
+
+  .authForm__title {
+    font-size: 24px;
+  }
+
+  .verify__title {
+    font-size: 21px;
+    text-align: center;
+  }
+
+  .verify__icon {
+    height: 60px;
+  }
+
+  .verify__link {
+    font-size: 21px;
+    padding: 10px 15px;
+  }
+}

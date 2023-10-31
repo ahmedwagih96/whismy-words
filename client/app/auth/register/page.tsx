@@ -12,7 +12,7 @@ const Register = async () => {
   return (
     <main>
       <section className="authForm__container">
-        <h1 className="authForm__title">Create new account</h1>
+        <h1 className="authForm__title">Create a new account</h1>
         <RegisterForm />
         <div className="authForm__link">
           Already have an account? <Link href="/auth/login">Login</Link>

@@ -32,7 +32,7 @@ function EditUser({ user }: { user: UserType }) {
               className="kebab__dropdown-item"
             >
               <PencilSquareIcon className="editIcon" />
-              <span>Edit Profile</span>
+              <span>Edit</span>
             </li>
             <li
               onClick={() => {
@@ -42,7 +42,7 @@ function EditUser({ user }: { user: UserType }) {
               className="kebab__dropdown-item"
             >
               <TrashIcon className="deleteIcon" />
-              <span>Delete Profile</span>
+              <span>Delete</span>
             </li>
           </ul>
         ) : null}

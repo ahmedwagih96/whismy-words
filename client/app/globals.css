@@ -23,6 +23,7 @@
 body {
   background-color: var(--main-color);
   overflow-x: hidden;
+  min-height: 100vh;
 }
 
 main {
@@ -237,6 +238,7 @@ textarea:focus {
 .select__inputs {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .upload__image .image__icons {
   cursor: pointer;

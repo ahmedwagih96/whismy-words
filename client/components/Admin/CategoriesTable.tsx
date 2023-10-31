@@ -1,8 +1,7 @@
 "use client";
 import { CategoryType } from "@/typings/mongoTypes";
 import useAdminDashboard from "@/hooks/useAdminDashboard";
-import { LoadingIcon } from "..";
-
+import { TrashIcon } from "@heroicons/react/24/solid";
 const CategoriesTable = ({
   allCategories,
 }: {
@@ -30,19 +29,11 @@ const CategoriesTable = ({
                   <b>{category.title}</b>
                 </td>
                 <td>
-                  <div className="table__button-group">
-                    <button
-                      type="button"
-                      className="table__button-group"
+                  <div className="actions">
+                    <TrashIcon
+                      className="deleteIcon"
                       onClick={() => deleteCategoryHandler(category._id)}
-                      disabled={loading.status}
-                    >
-                      {loading.status && loading.id === category._id ? (
-                        <LoadingIcon />
-                      ) : (
-                        "Delete Category"
-                      )}
-                    </button>
+                    />
                   </div>
                 </td>
               </tr>

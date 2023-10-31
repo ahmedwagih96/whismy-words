@@ -2,9 +2,9 @@
 import Link from "next/link";
 import useAdminDashboard from "@/hooks/useAdminDashboard";
 import { PostType } from "@/typings/mongoTypes";
-import { LoadingIcon } from "..";
+import { TrashIcon } from "@heroicons/react/24/solid";
 const PostsTable = ({ allPosts }: { allPosts: PostType[] }) => {
-  const { deletePostHandler, loading } = useAdminDashboard();
+  const { deletePostHandler } = useAdminDashboard();
   return (
     <main className="table__container">
       <div className="table__wrapper">
@@ -12,7 +12,7 @@ const PostsTable = ({ allPosts }: { allPosts: PostType[] }) => {
         <table className="table">
           <thead>
             <tr>
-              <th>Count</th>
+              <th className="table__hidden">Count</th>
               <th>User</th>
               <th>Post Title</th>
               <th>Action</th>
@@ -21,7 +21,7 @@ const PostsTable = ({ allPosts }: { allPosts: PostType[] }) => {
           <tbody>
             {allPosts?.map((post, index) => (
               <tr key={post?._id}>
-                <td>{index + 1}</td>
+                <td className="table__hidden">{index + 1}</td>
                 <td>
                   <div className="table__image">
                     <img
@@ -35,27 +35,16 @@ const PostsTable = ({ allPosts }: { allPosts: PostType[] }) => {
                   </div>
                 </td>
                 <td>
-                  <b>{post?.title}</b>
+                  <Link href={`/posts/details/${post?._id}`}>
+                    <b>{post?.title}</b>
+                  </Link>
                 </td>
                 <td>
-                  <div className="table__button-group">
-                    <button>
-                      <Link href={`/posts/details/${post?._id}`}>
-                        View Post
-                      </Link>
-                    </button>
-                    <button
-                      type="button"
-                      className="table__button-group"
+                  <div className="actions">
+                    <TrashIcon
+                      className="deleteIcon"
                       onClick={() => deletePostHandler(post?._id)}
-                      disabled={loading.status}
-                    >
-                      {loading.status && loading.id === post?._id ? (
-                        <LoadingIcon />
-                      ) : (
-                        "Delete Post"
-                      )}
-                    </button>
+                    />
                   </div>
                 </td>
               </tr>
