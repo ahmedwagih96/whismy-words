@@ -21,7 +21,7 @@ async function PageDescription({ params }: { params: { postId: string } }) {
           />
           <div className="postDetails__user">
             <strong>
-              <Link href={`/profile/${post?.user?._id}`}>
+              <Link href={`/users/${post?.user?._id}`}>
                 {post?.user?.username}
               </Link>
             </strong>
