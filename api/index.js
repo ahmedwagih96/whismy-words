@@ -23,7 +23,7 @@ app.use('/api/category', require('./routes/category.route.js'));
 app.use('/api/password', require('./routes/password.route.js'))
 
 
-const staticPath = path.join(__dirname, '../.next');
+const staticPath = path.join(__dirname, '../client/.next');
 app.use(express.static(staticPath));
 
 // Error Handler Middleware
