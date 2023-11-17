@@ -23,14 +23,14 @@ app.use('/api/category', require('./routes/category.route.js'));
 app.use('/api/password', require('./routes/password.route.js'))
 
 
-const staticPath = path.join(__dirname, '../client/dist');
+const staticPath = path.join(__dirname, '../.next');
 app.use(express.static(staticPath));
 
 // Error Handler Middleware
 app.use(errorHandler);
 
 app.get('*', (req, res) => {
-    res.sendFile(path.join(staticPath, 'index.html'));
+    res.sendFile(path.join(staticPath, 'server/app/index.html'));
 })
 
 // Running The Server
