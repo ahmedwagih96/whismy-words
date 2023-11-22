@@ -7,13 +7,11 @@ import {
   Dispatch,
   SetStateAction,
 } from "react";
-import { createNewPost } from "@/utils/posts";
-import { useSession } from "next-auth/react";
 import { PostData } from "@/typings/types";
-function useCreatePost(setModal: Dispatch<SetStateAction<boolean>>) {
-  const { data: session } = useSession();
-  const token = session?.user?.token;
+import { useCreatePostMutation } from "@/redux/services/homeApi";
 
+function useCreatePost(setModal: Dispatch<SetStateAction<boolean>>) {
+  const [createPost] = useCreatePostMutation();
   // State
   const [loading, setLoading] = useState<boolean>(false);
   const [file, setFile] = useState<File>();
@@ -43,10 +41,18 @@ function useCreatePost(setModal: Dispatch<SetStateAction<boolean>>) {
     if (postData.description.trim() === "")
       return toast.error("Post Description is required");
     if (!file) return toast.error("Post Image is required");
+
+    const formData = new FormData();
+    formData.append("image", file);
+    formData.append("title", postData.title);
+    formData.append("description", postData.description);
+    formData.append("category", category);
     setLoading(true);
-    const isPostCreated = await createNewPost(file, postData, category, token);
-    setLoading(false);
-    if (isPostCreated) setModal(false);
+    await createPost(formData)
+      .unwrap()
+      .then(() => setModal(false))
+      .catch((error) => toast.error(error.data.message))
+      .finally(() => setLoading(false));
   };
 
   return {
