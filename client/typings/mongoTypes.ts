@@ -1,9 +1,9 @@
 interface MongoType {
   _id: string;
-  id?: string;
-  createdAt?: string;
-  updatedAt?: string;
-  __v?: number;
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: number;
 }
 
 export interface ImageType {
@@ -16,10 +16,9 @@ export interface UserType extends MongoType {
   profilePhoto: ImageType;
   isAdmin: boolean;
   email: string;
-  token?: string;
-  isAccountVerified?: boolean;
-  bio?: string;
-  posts?: PostType[];
+  isAccountVerified: boolean;
+  bio: string;
+  posts: PostType[];
 }
 
 export interface PostType extends MongoType {

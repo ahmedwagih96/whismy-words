@@ -98,7 +98,7 @@ const updateUser = async (req, res) => {
         }
     }, {
         new: true
-    })
+    }).select('-password')
     res.status(StatusCodes.OK).json({ message: 'Your profile has been updated', user })
 }
 

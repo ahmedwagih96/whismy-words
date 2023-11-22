@@ -48,7 +48,7 @@ import Categories from "./Categories";
 import SelectBox from "./SelectBox";
 import Modal from "./Modal";
 import LoadingIcon from "./LoadingIcon";
-
+import LoadingSpinner from './LoadingSpinner'
 export {
   Header,
   HeaderRight,
@@ -86,5 +86,6 @@ export {
   LikeButton,
   UpdatePostForm,
   UpdateCommentForm,
-  LoadingIcon
+  LoadingIcon,
+  LoadingSpinner
 };

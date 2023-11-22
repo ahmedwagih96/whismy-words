@@ -1,18 +1,13 @@
 import { UserType } from "@/typings/mongoTypes";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import { EditUser } from "..";
-async function UserInfo({ user }: { user: UserType }) {
-  const session = await getServerSession(authOptions);
+import { useSession } from "next-auth/react";
+function UserInfo({ user }: { user: UserType }) {
+  const { data: session } = useSession();
   return (
     <div className="user__header">
-         {session?.user ? <EditUser user={user} /> : null}
+      {session?.user?.id === user._id ? <EditUser user={user} /> : null}
       <div className="user__image-wrapper">
-        <img
-          src={user?.profilePhoto.url}
-          alt=""
-          className="user__image"
-        />
+        <img src={user?.profilePhoto.url} alt="" className="user__image" />
       </div>
       <h1 className="user__username">{user?.username}</h1>
       <p className="user__bio">{user?.bio}</p>

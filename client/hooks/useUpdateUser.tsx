@@ -2,12 +2,14 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import { toast } from "react-toastify";
 import { UserType } from "@/typings/mongoTypes";
 import { useSession } from "next-auth/react";
-import { updateUser } from "@/utils/user";
 import { UserData } from "@/typings/types";
+import { useUpdateUserMutation } from "@/redux/services/userApi";
+
 function useUpdateUser(user: UserType) {
   const { data: session, update } = useSession();
   const token = session?.user?.token;
-
+  const [updateUser, { data: updatedUserData, error }] =
+    useUpdateUserMutation();
   // State
   const [updateModal, setUpdateModal] = useState<boolean>(false);
   const [userData, setUserData] = useState<UserData>({
@@ -55,12 +57,16 @@ function useUpdateUser(user: UserType) {
         toast.error("Passwords Does Not Match");
       formData.append("password", userData.password);
     }
-    const updatedUser: UserType = await updateUser(formData, token, user._id);
-    // update user in the session
-    update({
-      name: updatedUser.username,
-      profilePhoto: updatedUser.profilePhoto.url,
-    });
+    await updateUser({ formData, id: user._id, token })
+      .unwrap()
+      .then(({ user }: { user: UserType }) => {
+        // update user in the session
+        update({
+          name: user.username,
+          profilePhoto: user.profilePhoto.url,
+        });
+      })
+      .catch((error) => toast.error(error.data.message));
     // Set loading to false
     setLoading(false);
   };
