@@ -1,31 +1,31 @@
-import { UserType } from "@/typings/mongoTypes";
+import { PostType } from "@/typings/mongoTypes";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const userApi = createApi({
-  reducerPath: "userApi",
+export const postApi = createApi({
+  reducerPath: "postApi",
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_URL,
   }),
-  tagTypes: ['User'],
+  tagTypes: ['Post'],
   endpoints: (builder) => ({
-    getUserById: builder.query<UserType, { id: string }>({
-      query: ({ id }) => `/api/users/${id}`,
-      providesTags: ['User']
+    getPostById: builder.query<PostType, { id: string }>({
+      query: ({ id }) => `/api/posts/${id}`,
+      providesTags: ['Post']
     }),
-    updateUser: builder.mutation({
+    updatePost: builder.mutation({
       query: ({ formData, id, token }) => ({
-        url: `/api/users/${id}`,
+        url: `/api/posts/${id}`,
         method: "PUT",
         body: formData,
         headers: {
           Authorization: `Bearer ${token}`,
         },
       }),
-      invalidatesTags: ['User'],
+      invalidatesTags: ['Post'],
     }),
-    deleteUser: builder.mutation({
+    deletePost: builder.mutation({
       query: ({ id, token }) => ({
-        url: `/api/users/${id}`,
+        url: `/api/posts/${id}`,
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -36,7 +36,7 @@ export const userApi = createApi({
 });
 
 export const {
-  useGetUserByIdQuery,
-  useUpdateUserMutation,
-  useDeleteUserMutation,
-} = userApi;
+  useGetPostByIdQuery,
+  useUpdatePostMutation,
+  useDeletePostMutation,
+} = postApi;

@@ -8,8 +8,7 @@ import { useUpdateUserMutation } from "@/redux/services/userApi";
 function useUpdateUser(user: UserType) {
   const { data: session, update } = useSession();
   const token = session?.user?.token;
-  const [updateUser, { data: updatedUserData, error }] =
-    useUpdateUserMutation();
+  const [updateUser] = useUpdateUserMutation();
   // State
   const [updateModal, setUpdateModal] = useState<boolean>(false);
   const [userData, setUserData] = useState<UserData>({

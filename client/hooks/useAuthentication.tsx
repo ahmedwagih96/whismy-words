@@ -1,18 +1,19 @@
 "use client";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { registerUser, deleteUser } from "@/utils/auth";
+import { registerUser } from "@/utils/auth";
 import { useRouter } from "next/navigation";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { AuthForm } from "@/typings/types";
 import { authFormInitialState } from "@/constants";
-
+import { useDeleteUserMutation } from "@/redux/services/userApi";
 export default function useAuthentication() {
   const router = useRouter();
   const { data: session } = useSession();
   const userId = session?.user?.id;
   const token = session?.user?.token;
+  const [deleteUser] = useDeleteUserMutation();
   // State
   const [authForm, setAuthForm] = useState<AuthForm>(authFormInitialState);
   const [loading, setLoading] = useState<boolean>(false);
@@ -100,19 +101,16 @@ export default function useAuthentication() {
       confirmButtonText: "Yes, delete it!",
     }).then(async (isOk) => {
       if (isOk.isConfirmed) {
-        // IF CONFIRMED TO DELETED USER SET LOADING TO TRUE
-        setLoading(true);
-        // DELETE USER FROM DB
-        const message = await deleteUser(userId, token);
-        // IF SUCCESSFUL SET LOADING TO FALSE AND LOG OUT THE USER
-        if (message) {
-          setLoading(false);
-          Swal.fire("Account Deleted!", "success").then((isOk) => {
-            if (isOk) {
-              logoutHandler();
-            }
-          });
-        }
+        await deleteUser({ id: userId, token })
+          .unwrap()
+          .then(() => {
+            Swal.fire("Account Deleted!", "success").then((isOk) => {
+              if (isOk) {
+                logoutHandler();
+              }
+            });
+          })
+          .catch((error) => toast.error(error.data.message));
       }
     });
   };

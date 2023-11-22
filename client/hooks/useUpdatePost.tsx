@@ -11,9 +11,11 @@ import {
 } from "react";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
-import { deletePost, updatePost } from "@/utils/posts";
 import { useSession } from "next-auth/react";
-import { revalidatePage } from "@/actions/revalidatePage";
+import {
+  useDeletePostMutation,
+  useUpdatePostMutation,
+} from "@/redux/services/postApi";
 
 function useUpdatePost(
   post?: PostType,
@@ -22,6 +24,8 @@ function useUpdatePost(
   const router = useRouter();
   const { data: session } = useSession();
   const token = session?.user?.token;
+  const [deletePost] = useDeletePostMutation();
+  const [updatePost] = useUpdatePostMutation();
   // State
   const [file, setFile] = useState<File>();
   const [updateModal, setUpdateModal] = useState<boolean>(false);
@@ -62,16 +66,17 @@ function useUpdatePost(
     if (file) formData.append("image", file);
 
     const newPost = {
-      postId: id,
+      id,
       formData,
       token,
     };
-    const isPostUpdated = await updatePost(newPost);
-    revalidatePage(`posts/${post?._id}`);
-    setLoading(false);
-    if (setModal) {
-      if (isPostUpdated) setModal(false);
-    }
+    await updatePost(newPost)
+      .unwrap()
+      .then(() => {
+        if (setModal) setModal(false);
+      })
+      .catch((error) => toast.error(error.data.message))
+      .finally(() => setLoading(false));
   };
 
   // DELETE POST
@@ -86,8 +91,11 @@ function useUpdatePost(
       confirmButtonText: "Yes, delete it!",
     }).then(async (isOk) => {
       if (isOk.isConfirmed) {
-        router.push(`/`);
-        await deletePost(post._id, token);
+        await deletePost({ id: post._id, token })
+          .then(() => {
+            router.push(`/`);
+          })
+          .catch((error) => toast.error(error.data.message));
       }
     });
   };
