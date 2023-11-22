@@ -16,6 +16,7 @@ import CreatePost from "./Home/CreatePost";
 
 // ADMIN PAGE
 import AdminSidebar from "./Admin/AdminSidebar";
+import AdminHeader from "./Admin/AdminHeader";
 import AdminCard from "./Admin/AdminCard";
 import UsersTable from "./Admin/UsersTable";
 import CategoriesTable from "./Admin/CategoriesTable";
@@ -87,5 +88,6 @@ export {
   UpdatePostForm,
   UpdateCommentForm,
   LoadingIcon,
-  LoadingSpinner
+  LoadingSpinner,
+  AdminHeader
 };

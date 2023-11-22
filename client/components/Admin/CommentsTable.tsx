@@ -1,11 +1,25 @@
 "use client";
 import useAdminDashboard from "@/hooks/useAdminDashboard";
-import { CommentType } from "@/typings/mongoTypes";
 import { TrashIcon } from "@heroicons/react/24/solid";
-const CommentsTable = ({ allComments }: { allComments: CommentType[] }) => {
+import { useFetchAllCommentsQuery } from "@/redux/services/adminApi";
+import { LoadingSpinner } from "@/components";
+const CommentsTable = () => {
   const { deleteCommentHandler } = useAdminDashboard();
+  const {
+    data: allComments,
+    error,
+    isLoading,
+  } = useFetchAllCommentsQuery(null);
+  if (error) {
+    const typedError = error as { status: number; data: { message: string } };
+    const message =
+      `${typedError.status} - ${typedError.data.message}` ||
+      "An error occurred.";
+    throw new Error(message);
+  }
   return (
     <main className="table__container">
+      {isLoading ? <LoadingSpinner /> : null}
       <div className="table__wrapper">
         <h1 className="table__title">Comments</h1>
         <table className="table">

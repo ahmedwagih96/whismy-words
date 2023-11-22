@@ -1,19 +1,23 @@
 import { FormEvent, useState } from "react";
 import { toast } from "react-toastify";
-import {
-  addCategory,
-  deleteComment,
-  deleteCategory,
-  deleteProfile,
-  deletePost,
-} from "@/utils/admin";
 import { Loading } from "@/typings/types";
+import {
+  useAddCategoryMutation,
+  useDeleteCategoryMutation,
+  useDeleteCommentMutation,
+  useDeletePostMutation,
+  useDeleteUserMutation,
+} from "@/redux/services/adminApi";
 import { useSession } from "next-auth/react";
 import Swal from "sweetalert2";
 function useAdminDashboard() {
   const { data: session } = useSession();
   const token = session?.user?.token;
-
+  const [addCategory] = useAddCategoryMutation();
+  const [deleteCategory] = useDeleteCategoryMutation();
+  const [deleteComment] = useDeleteCommentMutation();
+  const [deletePost] = useDeletePostMutation();
+  const [deleteUser] = useDeleteUserMutation();
   // State
   const [category, setCategory] = useState<string>("");
   // Loading States
@@ -33,16 +37,15 @@ function useAdminDashboard() {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
-    })
-      .then(async (isOk) => {
-        if (isOk.isConfirmed) {
-          setLoading({ status: true, id });
-          await deleteComment(id, token);
-        }
-      })
-      .finally(() => {
-        setLoading({ status: false, id: null });
-      });
+    }).then(async (isOk) => {
+      if (isOk.isConfirmed) {
+        setLoading({ status: true, id });
+        await deleteComment(id)
+          .unwrap()
+          .catch((error) => toast.error(error.data.message))
+          .finally(() => setLoading({ status: false, id: null }));
+      }
+    });
   };
 
   // Create New Category
@@ -51,9 +54,17 @@ function useAdminDashboard() {
     if (category.trim() === "")
       return toast.error("Category Title is required");
     setIsAddingCategory(true);
-    await addCategory(category, token);
-    setCategory("");
-    setIsAddingCategory(false);
+    await addCategory(category)
+      .unwrap()
+      .then(() => {
+        setCategory("");
+      })
+      .catch((error) => {
+        toast.error(error.data.message);
+      })
+      .finally(() => {
+        setIsAddingCategory(false);
+      });
   };
 
   // Delete Category
@@ -66,16 +77,15 @@ function useAdminDashboard() {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
-    })
-      .then(async (isOk) => {
-        if (isOk.isConfirmed) {
-          setLoading({ status: true, id });
-          await deleteCategory(id, token);
-        }
-      })
-      .finally(() => {
-        setLoading({ status: false, id: null });
-      });
+    }).then(async (isOk) => {
+      if (isOk.isConfirmed) {
+        setLoading({ status: true, id });
+        await deleteCategory(id)
+          .unwrap()
+          .catch((error) => toast.error(error.data.message))
+          .finally(() => setLoading({ status: false, id: null }));
+      }
+    });
   };
 
   // Delete Post
@@ -88,17 +98,16 @@ function useAdminDashboard() {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
-    })
-      .then(async (isOk) => {
-        if (isOk.isConfirmed) {
-          setLoading({ status: true, id });
+    }).then(async (isOk) => {
+      if (isOk.isConfirmed) {
+        setLoading({ status: true, id });
 
-          await deletePost(id, token);
-        }
-      })
-      .finally(() => {
-        setLoading({ status: false, id: null });
-      });
+        await deletePost(id)
+          .unwrap()
+          .catch((error) => toast.error(error.data.message))
+          .finally(() => setLoading({ status: false, id: null }));
+      }
+    });
   };
 
   // Delete Profile
@@ -111,16 +120,15 @@ function useAdminDashboard() {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
-    })
-      .then(async (isOk) => {
-        if (isOk.isConfirmed) {
-          setLoading({ status: true, id });
-          await deleteProfile(id, token);
-        }
-      })
-      .finally(() => {
-        setLoading({ status: false, id: null });
-      });
+    }).then(async (isOk) => {
+      if (isOk.isConfirmed) {
+        setLoading({ status: true, id });
+        await deleteUser(id)
+          .unwrap()
+          .catch((error) => toast.error(error.data.message))
+          .finally(() => setLoading({ status: false, id: null }));
+      }
+    });
   };
 
   return {

@@ -1,12 +1,22 @@
 "use client";
 import Link from "next/link";
 import useAdminDashboard from "@/hooks/useAdminDashboard";
-import { UserType } from "@/typings/mongoTypes";
 import { TrashIcon } from "@heroicons/react/24/solid";
-const UsersTable = ({ allProfiles }: { allProfiles: UserType[] }) => {
+import { useFetchAllUsersQuery } from "@/redux/services/adminApi";
+import { LoadingSpinner } from "@/components";
+const UsersTable = () => {
   const { deleteProfileHandler, loading } = useAdminDashboard();
+  const { data: allProfiles, error, isLoading } = useFetchAllUsersQuery(null);
+  if (error) {
+    const typedError = error as { status: number; data: { message: string } };
+    const message =
+      `${typedError.status} - ${typedError.data.message}` ||
+      "An error occurred.";
+    throw new Error(message);
+  }
   return (
     <main className="table__container">
+      {isLoading ? <LoadingSpinner /> : null}
       <div className="table__wrapper">
         <h1 className="table__title">Users</h1>
         <table className="table">

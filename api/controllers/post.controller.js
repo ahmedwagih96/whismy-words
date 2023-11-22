@@ -51,7 +51,7 @@ const getPostsByQueries = async (req, res) => {
 -----------------------------------------------------*/
 const getAllPosts = async (req, res) => {
     const posts = await Post.find({}).populate("user", ['-password'])
-    res.status(StatusCodes.OK).json({ posts })
+    res.status(StatusCodes.OK).json(posts)
 }
 /**-----------------------------------------------------
     * @desc  Get Post
