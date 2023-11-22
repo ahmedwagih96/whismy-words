@@ -11,10 +11,10 @@ import {
 } from "react";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
-import { useSession } from "next-auth/react";
 import {
   useDeletePostMutation,
   useUpdatePostMutation,
+  useToggleLikeMutation,
 } from "@/redux/services/postApi";
 
 function useUpdatePost(
@@ -22,10 +22,9 @@ function useUpdatePost(
   setModal?: Dispatch<SetStateAction<boolean>>
 ) {
   const router = useRouter();
-  const { data: session } = useSession();
-  const token = session?.user?.token;
   const [deletePost] = useDeletePostMutation();
   const [updatePost] = useUpdatePostMutation();
+  const [toggleLike] = useToggleLikeMutation();
   // State
   const [file, setFile] = useState<File>();
   const [updateModal, setUpdateModal] = useState<boolean>(false);
@@ -68,7 +67,6 @@ function useUpdatePost(
     const newPost = {
       id,
       formData,
-      token,
     };
     await updatePost(newPost)
       .unwrap()
@@ -91,13 +89,19 @@ function useUpdatePost(
       confirmButtonText: "Yes, delete it!",
     }).then(async (isOk) => {
       if (isOk.isConfirmed) {
-        await deletePost({ id: post._id, token })
+        await deletePost({ id: post._id })
           .then(() => {
             router.push(`/`);
           })
           .catch((error) => toast.error(error.data.message));
       }
     });
+  };
+
+  const handleLikes = async (id: string) => {
+    await toggleLike(id)
+      .unwrap()
+      .catch((error) => toast.error(error.data.message));
   };
 
   return {
@@ -107,6 +111,7 @@ function useUpdatePost(
     setCategory,
     updatePostHandler,
     handleChange,
+    handleLikes,
     file,
     postData,
     updateModal,

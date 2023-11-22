@@ -6,8 +6,7 @@ import { UserData } from "@/typings/types";
 import { useUpdateUserMutation } from "@/redux/services/userApi";
 
 function useUpdateUser(user: UserType) {
-  const { data: session, update } = useSession();
-  const token = session?.user?.token;
+  const { update } = useSession();
   const [updateUser] = useUpdateUserMutation();
   // State
   const [updateModal, setUpdateModal] = useState<boolean>(false);
@@ -56,7 +55,7 @@ function useUpdateUser(user: UserType) {
         toast.error("Passwords Does Not Match");
       formData.append("password", userData.password);
     }
-    await updateUser({ formData, id: user._id, token })
+    await updateUser({ formData, id: user._id })
       .unwrap()
       .then(({ user }: { user: UserType }) => {
         // update user in the session

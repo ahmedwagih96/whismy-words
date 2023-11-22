@@ -2,11 +2,17 @@
 import { FormEvent, useState } from "react";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
-import { addComment, updateComment, deleteComment } from "@/utils/comments";
-import { useSession } from "next-auth/react";
+import {
+  useAddCommentMutation,
+  useUpdateCommentMutation,
+  useDeleteCommentMutation,
+} from "@/redux/services/postApi";
 function useComment(comment?: string) {
-  const { data: session } = useSession();
-  const token = session?.user?.token;
+  const [addComment] = useAddCommentMutation();
+  const [deleteComment] = useDeleteCommentMutation();
+  const [updateComment] = useUpdateCommentMutation();
+
+  // STATE
   const [updateModal, setUpdateModal] = useState<boolean>(false);
   const [updatedComment, setUpdatedComment] = useState<string>(comment || "");
   const [loading, setLoading] = useState<boolean>(false);
@@ -21,13 +27,16 @@ function useComment(comment?: string) {
       return toast.error("Please write something");
     setLoading(true);
     const newComment = {
-      id,
-      token,
+      postId: id,
       text: updatedComment,
     };
-    await addComment(newComment);
-    setLoading(false);
-    setUpdatedComment("");
+    await addComment(newComment)
+      .unwrap()
+      .catch((error) => toast.error(error.data.message))
+      .finally(() => {
+        setLoading(false);
+        setUpdatedComment("");
+      });
   };
 
   // Delete Comment
@@ -43,8 +52,13 @@ function useComment(comment?: string) {
     }).then(async (result) => {
       if (result.isConfirmed) {
         setLoading(true);
-        await deleteComment(id, token);
-        setLoading(false);
+        await deleteComment(id)
+          .unwrap()
+          .catch((error) => toast.error(error.data.message))
+          .finally(() => {
+            setLoading(false);
+            setUpdatedComment("");
+          });
       }
     });
   };
@@ -59,13 +73,15 @@ function useComment(comment?: string) {
       return toast.error("Please write a comment");
     const newComment = {
       id,
-      token,
       text: updatedComment,
     };
     setLoading(false);
-    await updateComment(newComment);
-    setLoading(true);
-    setUpdatedComment("");
+    await updateComment(newComment)
+      .unwrap()
+      .catch((error) => toast.error(error.data.message))
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return {

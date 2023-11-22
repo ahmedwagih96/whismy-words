@@ -8,11 +8,8 @@ import {
   useDeletePostMutation,
   useDeleteUserMutation,
 } from "@/redux/services/adminApi";
-import { useSession } from "next-auth/react";
 import Swal from "sweetalert2";
 function useAdminDashboard() {
-  const { data: session } = useSession();
-  const token = session?.user?.token;
   const [addCategory] = useAddCategoryMutation();
   const [deleteCategory] = useDeleteCategoryMutation();
   const [deleteComment] = useDeleteCommentMutation();
@@ -26,7 +23,6 @@ function useAdminDashboard() {
     status: false,
     id: null,
   });
-
   // Delete Comment
   const deleteCommentHandler = async (id: string) => {
     Swal.fire({
@@ -47,7 +43,6 @@ function useAdminDashboard() {
       }
     });
   };
-
   // Create New Category
   const createCategoryHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -66,7 +61,6 @@ function useAdminDashboard() {
         setIsAddingCategory(false);
       });
   };
-
   // Delete Category
   const deleteCategoryHandler = async (id: string) => {
     Swal.fire({
@@ -87,7 +81,6 @@ function useAdminDashboard() {
       }
     });
   };
-
   // Delete Post
   const deletePostHandler = async (id: string) => {
     Swal.fire({
@@ -109,7 +102,6 @@ function useAdminDashboard() {
       }
     });
   };
-
   // Delete Profile
   const deleteProfileHandler = async (id: string) => {
     Swal.fire({
@@ -130,7 +122,6 @@ function useAdminDashboard() {
       }
     });
   };
-
   return {
     setCategory,
     deleteCommentHandler,
