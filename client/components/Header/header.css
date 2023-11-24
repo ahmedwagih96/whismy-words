@@ -64,6 +64,10 @@
   text-transform: capitalize;
   user-select: none;
   max-width: 150px;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .header__user-photo {

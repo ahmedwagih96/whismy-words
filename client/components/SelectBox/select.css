@@ -27,11 +27,12 @@
   height: 20px;
 }
 
-span {
+.select__container span {
   display: block;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-size: 14px;
 }
 
 .select__options {

@@ -5,7 +5,7 @@
 }
 
 .postDetails__title {
-  font-size: 40px;
+  font-size: 32px;
   color: var(--primary-color);
   text-transform: capitalize;
   text-align: center;
@@ -13,7 +13,7 @@
 
 @media (max-width: 720px) {
   .postDetails__title {
-    font-size: 30px;
+    font-size: 24px;
   }
 }
 
@@ -76,7 +76,7 @@
   color: black;
 }
 
-.kebab__dropdown {
+.postDetails .kebab__dropdown {
   position: absolute;
   right: 0;
   width: 150px;
@@ -93,7 +93,7 @@
   object-fit: contain;
 }
 
-form button {
+.postDetails form button {
   margin-left: 10px;
   background-color: var(--secondary-color);
   color: var(--main-color);
@@ -105,14 +105,14 @@ form button {
   border: 1px solid var(--blue-color);
 }
 
-.update__image {
+.postDetails .update__image {
   font-size: 14px;
   font-weight: bold;
   color: var(--blue-color);
   cursor: pointer;
 }
 
-.update__image svg {
+.postDetails .update__image svg {
   font-size: 21px;
   margin-right: 3px;
 }
@@ -132,14 +132,14 @@ form button {
   cursor: auto;
 }
 .postDetails__description {
-  font-size: 21px;
+  font-size: 18px;
   line-height: 1.8;
   color: var(--primary-color);
 }
 
 @media (max-width: 720px) {
   .postDetails__description {
-    font-size: 17px;
+    font-size: 16px;
     line-height: 1.5;
   }
 }
@@ -178,10 +178,10 @@ form button {
   color: var(--gray-color);
   font-size: 17px;
 }
-.comments {
+.postDetails .comments {
   padding: 5px;
 }
-.comments__count {
+.postDetails .comments__count {
   font-size: 30px;
   color: var(--dark-color);
   border-bottom: 1px solid var(--dark-color);
@@ -191,22 +191,22 @@ form button {
   align-items: center;
   justify-content: space-between;
 }
-.comment {
+.postDetails .comment {
   padding: 7px;
   border: 1px solid var(--gray-color);
   border-radius: 5px;
   margin-top: 15px;
 }
-.comment__info {
+.postDetails .comment__info {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
 }
-.comment__user-info {
+.postDetails .comment__user-info {
   display: flex;
   align-items: center;
 }
-.comment__user-photo {
+.postDetails .comment__user-photo {
   height: 50px;
   width: 50px;
   border-radius: 50%;
@@ -214,34 +214,34 @@ form button {
   margin-right: 5px;
 }
 
-.comment__username {
+.postDetails .comment__username {
   font-size: 17px;
   font-weight: bold;
   color: var(--primary-color);
 }
 
-.comment__time {
+.postDetails .comment__time {
   font-size: 15px;
   font-weight: 500;
   color: var(--pumpkin-color);
 }
 
-.comment__text {
+.postDetails .comment__text {
   padding: 10px;
   color: var(--dark-color);
   font-size: 17px;
 }
-.update__comment {
+.postDetails .update__comment {
   display: flex;
   gap: 10px;
 }
 
 @media (max-width: 500px) {
-  .update__comment {
+  .postDetails .update__comment {
     flex-direction: column;
   }
 }
-.comment__input {
+.postDetails .comment__input {
   padding: 10px;
   color: var(--dark-color);
   font-size: 17px;
@@ -250,7 +250,7 @@ form button {
   border-radius: 10px;
 }
 
-.update__comment .btn {
+.postDetails .update__comment .btn {
   padding: 10px 15px;
   border-radius: 10px;
   border: none;
@@ -269,11 +269,11 @@ form button {
   font-size: 18px;
 }
 
-.comment__icon-wrapper i {
+.postDetails .comment__icon-wrapper i {
   cursor: pointer;
 }
 
-.comment__deleteComment {
+.postDetails .comment__deleteComment {
   background-color: var(--red-color);
   color: var(--white-color);
   font-size: 18px;
@@ -284,19 +284,19 @@ form button {
 }
 
 /* START ADD COMMENTS */
-.addComment {
+.postDetails .addComment {
   margin: 30px 0;
   display: flex;
   height: 50px;
 }
-.addComment__input {
+.postDetails .addComment__input {
   width: 100%;
   font-size: 21px;
   border: none;
   padding: 10px;
   border-radius: 5px;
 }
-.addComment__btn {
+.postDetails .addComment__btn {
   background-color: var(--primary-color);
   color: var(--white-color);
   font-size: 18px;
