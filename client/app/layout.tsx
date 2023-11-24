@@ -17,13 +17,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <Providers>
+      <body>
         <NextTopLoader color="#ffffff" />
         <ToastContainer theme="colored" position="top-center" />
-        <Header />
-        {children}
-        <Footer />
-      </Providers>
+        <Providers>
+          <Header />
+          {children}
+          <Footer />
+        </Providers>
+      </body>
     </html>
   );
 }
