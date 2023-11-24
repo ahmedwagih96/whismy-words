@@ -3,7 +3,8 @@ import "./select.css";
 import { SelectBoxProps } from "@/typings/props";
 import { Listbox } from "@headlessui/react";
 import { ChevronUpDownIcon } from "@heroicons/react/24/solid";
-function SelectBox({ value, setValue, options, title }: SelectBoxProps) {
+function SelectBox({ value, setValue, options, title, index }: SelectBoxProps) {
+  let styles = index ? { zIndex: index } : undefined;
   return (
     <Listbox
       value={value}
@@ -11,10 +12,10 @@ function SelectBox({ value, setValue, options, title }: SelectBoxProps) {
         setValue(e);
       }}
     >
-      <div className="select__container">
+      <div className="select__container" style={styles}>
         <Listbox.Button className="select__button">
           <span>{value ? value : title}</span>
-          <ChevronUpDownIcon className="chevron__icon"/>
+          <ChevronUpDownIcon className="chevron__icon" />
         </Listbox.Button>
 
         <Listbox.Options className="select__options">

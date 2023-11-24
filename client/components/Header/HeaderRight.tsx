@@ -1,8 +1,8 @@
+"use client";
 import { AuthLinks, User } from "@/components";
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
-async function HeaderRight() {
-  const session = await getServerSession(authOptions);
+import { useSession } from "next-auth/react";
+function HeaderRight() {
+  const { data: session } = useSession();
   return (
     <div className="header__right">
       {session?.user ? <User /> : <AuthLinks />}

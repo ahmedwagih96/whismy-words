@@ -1,7 +1,7 @@
 import { request } from "@/utils/request";
 import { toast } from "react-toastify";
 import { Params } from "@/typings/types";
-
+import { getSession } from "next-auth/react";
 // Register User
 export async function registerUser(user: {
   email: string;
@@ -17,10 +17,9 @@ export async function registerUser(user: {
 }
 
 // Delete User
-export async function deleteUser(
-  id: string | undefined,
-  token: string | undefined
-) {
+export async function deleteUser(id: string) {
+  const session = await getSession();
+  const token = session?.user?.token;
   try {
     const { data } = await request.delete(`/api/users/${id}`, {
       headers: {

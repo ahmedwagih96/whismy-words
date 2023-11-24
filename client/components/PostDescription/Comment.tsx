@@ -5,6 +5,8 @@ import { UpdateCommentForm } from "@/components";
 import { CommentType } from "@/typings/mongoTypes";
 import Moment from "react-moment";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
+
 function Comment({ comment }: { comment: CommentType }) {
   const { deleteCommentHandler, updateModal, setUpdateModal } = useComment();
   const { data: session } = useSession();
@@ -13,10 +15,12 @@ function Comment({ comment }: { comment: CommentType }) {
     <div className="comment">
       <div className="comment__info">
         <div className="comment__user-info">
-          <img
+          <Image
             src={comment?.user.profilePhoto.url}
             alt="user image"
             className="comment__user-photo"
+            width={50}
+            height={50}
           />
           <span className="comment__username">{comment?.username}</span>
         </div>

@@ -1,15 +1,15 @@
 import Image from "next/image";
 function LoadingSpinner() {
   return (
-    <main>
+    <div className="loading__spinner">
       <Image
         src="/spinner.svg"
         alt="loading"
         height={200}
         width={200}
-        className="loading__spinner"
+        priority={true}
       />
-    </main>
+    </div>
   );
 }
 

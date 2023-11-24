@@ -19,6 +19,7 @@ export default function Home() {
     isLoading,
     data: fetchedPosts,
     error,
+    isFetching,
   } = useGetPostsBySearchParamsQuery({
     category: params.get("category") || "",
     limit: params.get("limit") || "",
@@ -36,7 +37,7 @@ export default function Home() {
 
   return (
     <main>
-      {isLoading ? (
+      {isLoading || isFetching ? (
         <LoadingSpinner />
       ) : (
         <>

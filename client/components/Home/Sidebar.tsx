@@ -21,8 +21,9 @@ function Sidebar() {
           setValue={setSort}
           value={sort}
           options={sortOptions}
+          index={12}
         />
-        <Categories category={category} setCategory={setCategory} />
+        <Categories index={11} category={category} setCategory={setCategory} />
         <SelectBox
           title="Posts per page"
           setValue={setLimit}

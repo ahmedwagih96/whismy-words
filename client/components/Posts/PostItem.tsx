@@ -1,10 +1,17 @@
 import { PostType } from "@/typings/mongoTypes";
 import Link from "next/link";
+import Image from "next/image";
 function PostItem({ post }: { post: PostType }) {
   return (
     <div className="post__item">
       <div className="image__wrapper">
-        <img src={post?.image.url} alt="" className="post__image" />
+        <Image
+          src={post?.image.url}
+          alt="post image"
+          className="post__image"
+          height={400}
+          width={400}
+        />
       </div>
       <div className="info__wrapper">
         <div className="post__details">
@@ -24,7 +31,7 @@ function PostItem({ post }: { post: PostType }) {
           </div>
         </div>
         <Link className="post__link" href={`/posts/${post._id}`}>
-          Read More...
+          Read More
         </Link>
       </div>
     </div>

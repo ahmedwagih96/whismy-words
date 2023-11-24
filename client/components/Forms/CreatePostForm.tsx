@@ -7,6 +7,7 @@ import {
   XCircleIcon,
   PhotoIcon,
 } from "@heroicons/react/24/solid";
+import Image from "next/image";
 function CreatePostForm({
   setModal,
 }: {
@@ -67,7 +68,12 @@ function CreatePostForm({
       {file ? (
         <div className="image__preview">
           <XCircleIcon onClick={() => setFile(undefined)} />
-          <img src={URL.createObjectURL(file)} alt="image preview" />
+          <Image
+            src={URL.createObjectURL(file)}
+            alt="image preview"
+            width={50}
+            height={50}
+          />
         </div>
       ) : null}
 

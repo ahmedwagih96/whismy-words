@@ -4,6 +4,7 @@ import useAdminDashboard from "@/hooks/useAdminDashboard";
 import { TrashIcon } from "@heroicons/react/24/solid";
 import { useFetchAllUsersQuery } from "@/redux/services/adminApi";
 import { LoadingSpinner } from "@/components";
+import Image from "next/image";
 const UsersTable = () => {
   const { deleteProfileHandler, loading } = useAdminDashboard();
   const { data: allProfiles, error, isLoading } = useFetchAllUsersQuery(null);
@@ -35,10 +36,12 @@ const UsersTable = () => {
                 <td>
                   <div className="table__image">
                     <Link href={`/users/${profile._id}`}>
-                      <img
+                      <Image
                         src={profile.profilePhoto.url}
                         alt="User Profile Image"
                         className="table__user-image"
+                        width={40}
+                        height={40}
                       />
                       <span className="table__username">
                         {profile.username}

@@ -1,19 +1,14 @@
 "use client";
 import { ChangeEvent, FormEvent, useState } from "react";
-import { registerUser } from "@/utils/auth";
+import { registerUser, deleteUser } from "@/utils/auth";
 import { useRouter } from "next/navigation";
-import { signIn, signOut, useSession } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 import { AuthForm } from "@/typings/types";
 import { authFormInitialState } from "@/constants";
-import { useDeleteUserMutation } from "@/redux/services/userApi";
 export default function useAuthentication() {
   const router = useRouter();
-  const { data: session } = useSession();
-  const userId = session?.user?.id;
-  const token = session?.user?.token;
-  const [deleteUser] = useDeleteUserMutation();
   // State
   const [authForm, setAuthForm] = useState<AuthForm>(authFormInitialState);
   const [loading, setLoading] = useState<boolean>(false);
@@ -75,7 +70,7 @@ export default function useAuthentication() {
         text: res.error,
       });
     } else {
-      router.refresh();
+      router.push("/");
       setAuthForm(authFormInitialState);
     }
   };
@@ -83,13 +78,12 @@ export default function useAuthentication() {
   // LOG OUT
   const logoutHandler = () => {
     // SIGN OUT WITH NEXT-AUTH
-    signOut();
-    // REDIRECT TO LOGIN PAGE
+    signOut({ redirect: false });
     router.push("/auth/login");
   };
 
   // DELETE USER
-  const deleteUserHandler = () => {
+  const deleteUserHandler = (id: string) => {
     // VALIDATION MODAL
     Swal.fire({
       title: "Are you sure?",
@@ -101,16 +95,8 @@ export default function useAuthentication() {
       confirmButtonText: "Yes, delete it!",
     }).then(async (isOk) => {
       if (isOk.isConfirmed) {
-        await deleteUser({ id: userId, token })
-          .unwrap()
-          .then(() => {
-            Swal.fire("Account Deleted!", "success").then((isOk) => {
-              if (isOk) {
-                logoutHandler();
-              }
-            });
-          })
-          .catch((error) => toast.error(error.data.message));
+        await deleteUser(id);
+        logoutHandler();
       }
     });
   };

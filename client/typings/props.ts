@@ -8,12 +8,14 @@ export interface HomeProps {
 export interface CategoriesProps {
   category: string;
   setCategory: Dispatch<SetStateAction<string>>;
+  index? : number
 }
 export interface SelectBoxProps {
   title: string;
   value: string;
   setValue: Dispatch<SetStateAction<string>>;
   options: options[];
+  index?: number;
 }
 
 interface options {

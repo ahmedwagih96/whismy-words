@@ -4,6 +4,7 @@ import useAdminDashboard from "@/hooks/useAdminDashboard";
 import { TrashIcon } from "@heroicons/react/24/solid";
 import { useFetchAllPostsQuery } from "@/redux/services/adminApi";
 import { LoadingSpinner } from "@/components";
+import Image from "next/image";
 const PostsTable = () => {
   const { deletePostHandler } = useAdminDashboard();
   const {
@@ -40,10 +41,12 @@ const PostsTable = () => {
                   <td className="table__hidden">{index + 1}</td>
                   <td>
                     <div className="table__image">
-                      <img
+                      <Image
                         src={post?.user?.profilePhoto?.url}
-                        alt=""
+                        alt="profile Image"
                         className="table__user-image"
+                        width={40}
+                        height={40}
                       />
                       <span className="table__username">
                         {post?.user?.username}

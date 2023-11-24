@@ -9,7 +9,7 @@ export const authOptions: NextAuthOptions = {
   },
   secret: process.env.NEXT_PUBLIC_NEXTAUTH_SECRET,
   pages: {
-    signIn: "/login",
+    signIn: "/auth/login",
   },
   providers: [
     CredentialsProvider({

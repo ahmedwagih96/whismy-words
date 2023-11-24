@@ -3,6 +3,7 @@ import useAdminDashboard from "@/hooks/useAdminDashboard";
 import { TrashIcon } from "@heroicons/react/24/solid";
 import { useFetchAllCommentsQuery } from "@/redux/services/adminApi";
 import { LoadingSpinner } from "@/components";
+import Image from "next/image";
 const CommentsTable = () => {
   const { deleteCommentHandler } = useAdminDashboard();
   const {
@@ -37,10 +38,12 @@ const CommentsTable = () => {
                 <td className="table__hidden">{index + 1}</td>
                 <td>
                   <div className="table__image">
-                    <img
+                    <Image
                       src={comment.user.profilePhoto.url}
                       alt="user image"
                       className="table__user-image"
+                      width={40}
+                      height={40}
                     />
                     <span className="table__username">{comment.username}</span>
                   </div>

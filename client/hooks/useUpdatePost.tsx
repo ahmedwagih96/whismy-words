@@ -14,7 +14,6 @@ import Swal from "sweetalert2";
 import {
   useDeletePostMutation,
   useUpdatePostMutation,
-  useToggleLikeMutation,
 } from "@/redux/services/postApi";
 
 function useUpdatePost(
@@ -24,7 +23,6 @@ function useUpdatePost(
   const router = useRouter();
   const [deletePost] = useDeletePostMutation();
   const [updatePost] = useUpdatePostMutation();
-  const [toggleLike] = useToggleLikeMutation();
   // State
   const [file, setFile] = useState<File>();
   const [updateModal, setUpdateModal] = useState<boolean>(false);
@@ -98,12 +96,6 @@ function useUpdatePost(
     });
   };
 
-  const handleLikes = async (id: string) => {
-    await toggleLike(id)
-      .unwrap()
-      .catch((error) => toast.error(error.data.message));
-  };
-
   return {
     setFile,
     deletePostHandler,
@@ -111,7 +103,6 @@ function useUpdatePost(
     setCategory,
     updatePostHandler,
     handleChange,
-    handleLikes,
     file,
     postData,
     updateModal,

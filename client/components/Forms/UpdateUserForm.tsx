@@ -9,7 +9,8 @@ import {
   BookOpenIcon,
 } from "@heroicons/react/24/solid";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
-import { LoadingIcon } from "..";
+import { LoadingIcon } from "@/components";
+import Image from "next/image";
 function UpdateUserForm({
   user,
   setUpdateModal,
@@ -34,10 +35,12 @@ function UpdateUserForm({
       className="edit__form"
     >
       <div className="user__image-wrapper">
-        <img
+        <Image
           src={file ? URL.createObjectURL(file) : user?.profilePhoto.url}
-          alt=""
+          alt="user image"
           className="user__image"
+          width={120}
+          height={120}
         />
         <div className="icon__container">
           {!file ? (

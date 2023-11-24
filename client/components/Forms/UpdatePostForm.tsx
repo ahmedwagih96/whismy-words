@@ -7,6 +7,7 @@ import {
   PhotoIcon,
 } from "@heroicons/react/24/solid";
 import { Categories, LoadingIcon } from "@/components";
+import Image from "next/image";
 function UpdatePostForm({
   post,
   setModal,
@@ -72,10 +73,20 @@ function UpdatePostForm({
         {file ? (
           <>
             <XCircleIcon onClick={() => setFile(undefined)} />
-            <img src={URL.createObjectURL(file)} alt="image preview" />
+            <Image
+              src={URL.createObjectURL(file)}
+              alt="image preview"
+              width={50}
+              height={50}
+            />
           </>
         ) : (
-          <img src={post?.image?.url} alt="image preview" />
+          <Image
+            src={post?.image?.url}
+            alt="image preview"
+            width={50}
+            height={50}
+          />
         )}
       </div>
       <button className="create__btn" disabled={loading} type="submit">

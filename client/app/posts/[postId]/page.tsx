@@ -5,6 +5,7 @@ import { EditPost, LoadingSpinner, PostComments } from "@/components";
 import { useParams } from "next/navigation";
 import { useGetPostByIdQuery } from "@/redux/services/postApi";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 function PageDescription() {
   const { data: session } = useSession();
   const params = useParams();
@@ -30,10 +31,12 @@ function PageDescription() {
           <h1 className="postDetails__title">{post?.title}</h1>
           <div className="postDetails__user-container">
             <div className="postDetails__user-info">
-              <img
+              <Image
                 src={post?.user?.profilePhoto.url}
                 alt="user image"
                 className="postDetails__user-image"
+                width={35}
+                height={35}
               />
               <div className="postDetails__user">
                 <strong>
@@ -44,13 +47,17 @@ function PageDescription() {
                 <span>{new Date(post?.createdAt!).toDateString()}</span>
               </div>
             </div>
-            {session?.user?.id === post.user._id ? <EditPost post={post} /> : null}
+            {session?.user?.id === post.user._id ? (
+              <EditPost post={post} />
+            ) : null}
           </div>
           <div className="postDetails__image-wrapper">
-            <img
+            <Image
               src={post?.image?.url}
               alt="post image"
               className="postDetails__image"
+              height={300}
+              width={300}
             />
           </div>
           <p className="postDetails__description">{post?.description}</p>

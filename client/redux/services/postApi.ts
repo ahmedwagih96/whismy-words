@@ -51,11 +51,35 @@ export const postApi = createApi({
       invalidatesTags: ["Post"],
     }),
     toggleLike: builder.mutation({
-      query: (id: string) => ({
-        url: `/api/posts/like/${id}`,
+      query: ({ postId }) => ({
+        url: `/api/posts/like/${postId}`,
         method: "PUT",
       }),
       invalidatesTags: ["Post"],
+      async onQueryStarted({ postId, userId }, { dispatch, queryFulfilled }) {
+        const patchResult = dispatch(
+          postApi.util.updateQueryData(
+            "getPostById",
+            { id: postId },
+            (draft) => {
+              const post = draft;
+              if (post) {
+                if (post.likes.includes(userId)) {
+                  const newLikes = post.likes.filter((i) => i !== userId);
+                  post.likes = newLikes;
+                } else {
+                  post.likes.push(userId);
+                }
+              }
+            }
+          )
+        );
+        try {
+          await queryFulfilled;
+        } catch {
+          patchResult.undo();
+        }
+      },
     }),
     deletePost: builder.mutation({
       query: ({ id }) => ({

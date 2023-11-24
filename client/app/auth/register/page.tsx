@@ -6,7 +6,7 @@ import { redirect } from "next/navigation";
 import { RegisterForm } from "@/components";
 const Register = async () => {
   const session = await getServerSession(authOptions);
-  if (session) {
+  if (session?.user) {
     redirect("/");
   }
   return (
