@@ -1,5 +1,5 @@
 
-# Property Pulse - Real Estate Web App
+# Whismy Words - Blog Web App
 
 ## Overview
 
