@@ -4,16 +4,16 @@ import { Loading } from "@/typings/types";
 import {
   useAddCategoryMutation,
   useDeleteCategoryMutation,
-  useDeleteCommentMutation,
-  useDeletePostMutation,
+  useDeleteAdminCommentMutation,
+  useDeleteAdminPostMutation,
   useDeleteUserMutation,
 } from "@/redux/services/adminApi";
 import Swal from "sweetalert2";
 function useAdminDashboard() {
   const [addCategory] = useAddCategoryMutation();
   const [deleteCategory] = useDeleteCategoryMutation();
-  const [deleteComment] = useDeleteCommentMutation();
-  const [deletePost] = useDeletePostMutation();
+  const [deleteComment] = useDeleteAdminCommentMutation();
+  const [deletePost] = useDeleteAdminPostMutation();
   const [deleteUser] = useDeleteUserMutation();
   // State
   const [category, setCategory] = useState<string>("");
@@ -30,7 +30,7 @@ function useAdminDashboard() {
       text: "You won't be able to revert this post!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
+      confirmButtonColor: "#0275d8",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
     }).then(async (isOk) => {
@@ -68,7 +68,7 @@ function useAdminDashboard() {
       text: "You won't be able to revert this post!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
+      confirmButtonColor: "#0275d8",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
     }).then(async (isOk) => {
@@ -88,7 +88,7 @@ function useAdminDashboard() {
       text: "You won't be able to revert this post!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
+      confirmButtonColor: "#0275d8",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
     }).then(async (isOk) => {
@@ -109,7 +109,7 @@ function useAdminDashboard() {
       text: "You won't be able to revert this profile!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
+      confirmButtonColor: "#0275d8",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
     }).then(async (isOk) => {

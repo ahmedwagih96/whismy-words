@@ -4,21 +4,9 @@ import {
   PostType,
   UserType,
 } from "@/typings/mongoTypes";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { getSession } from "next-auth/react";
-export const adminApi = createApi({
-  reducerPath: "adminApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_URL,
-    prepareHeaders: async (headers) => {
-      const session = await getSession();
-      if (session?.user) {
-        headers.set("Authorization", `Bearer ${session.user.token}`);
-        return headers;
-      }
-    },
-  }),
-  tagTypes: ["Posts", "Users", "Categories", "Comments"],
+import { baseApi } from "./baseApi";
+
+export const adminApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     fetchAllPosts: builder.query<PostType[], null>({
       query: () => `/api/posts/all-posts`,
@@ -27,7 +15,7 @@ export const adminApi = createApi({
     fetchPostsCount: builder.query<number, null>({
       query: () => `/api/posts/count`,
     }),
-    deletePost: builder.mutation({
+    deleteAdminPost: builder.mutation({
       query: (id) => ({
         url: `/api/posts/${id}`,
         method: "DELETE",
@@ -43,18 +31,18 @@ export const adminApi = createApi({
         url: `/api/users/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Posts"],
+      invalidatesTags: ["Users"],
     }),
     fetchAllComments: builder.query<CommentType[], null>({
       query: () => `/api/comments/`,
       providesTags: ["Comments"],
     }),
-    deleteComment: builder.mutation({
+    deleteAdminComment: builder.mutation({
       query: (id) => ({
         url: `/api/comments/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Comments"],
+      invalidatesTags: ["Comments", 'Post'],
     }),
     fetchAllCategories: builder.query<CategoryType[], null>({
       query: () => `/api/category/`,
@@ -86,7 +74,7 @@ export const {
   useFetchPostsCountQuery,
   useAddCategoryMutation,
   useDeleteCategoryMutation,
-  useDeleteCommentMutation,
-  useDeletePostMutation,
+  useDeleteAdminCommentMutation,
+  useDeleteAdminPostMutation,
   useDeleteUserMutation,
 } = adminApi;

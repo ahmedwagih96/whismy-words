@@ -1,27 +1,15 @@
 import { PostType } from "@/typings/mongoTypes";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { getSession } from "next-auth/react";
+import { baseApi } from "./baseApi";
 
 type FetchedPosts = {
-    posts :PostType[],
-    postsCount: number
-}
-export const homeApi = createApi({
-  reducerPath: "homeApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_URL,
-    prepareHeaders: async (headers) => {
-      const session = await getSession();
-      if (session?.user) {
-        headers.set("Authorization", `Bearer ${session.user.token}`);
-        return headers;
-      }
-    },
-  }),
-  tagTypes: ["Posts"],
+  posts: PostType[];
+  postsCount: number;
+};
+
+export const homeApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getPostsBySearchParams: builder.query<
-    FetchedPosts,
+      FetchedPosts,
       { category: string; limit: string; sort: string; pageNumber: string }
     >({
       query: ({ category, limit, sort, pageNumber }) =>

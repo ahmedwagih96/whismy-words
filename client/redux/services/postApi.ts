@@ -1,19 +1,7 @@
+import { baseApi } from "./baseApi";
 import { PostType } from "@/typings/mongoTypes";
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { getSession } from "next-auth/react";
-export const postApi = createApi({
-  reducerPath: "postApi",
-  baseQuery: fetchBaseQuery({
-    baseUrl: process.env.NEXT_PUBLIC_URL,
-    prepareHeaders: async (headers) => {
-      const session = await getSession();
-      if (session?.user) {
-        headers.set("Authorization", `Bearer ${session.user.token}`);
-        return headers;
-      }
-    },
-  }),
-  tagTypes: ["Post"],
+
+export const postApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getPostById: builder.query<PostType, { id: string }>({
       query: ({ id }) => `/api/posts/${id}`,
@@ -25,7 +13,7 @@ export const postApi = createApi({
         method: "PUT",
         body: formData,
       }),
-      invalidatesTags: ["Post"],
+      invalidatesTags: ["Post", 'Posts'],
     }),
     updateComment: builder.mutation({
       query: ({ text, id }) => ({
@@ -33,7 +21,7 @@ export const postApi = createApi({
         method: "PUT",
         body: { text },
       }),
-      invalidatesTags: ["Post"],
+      invalidatesTags: ["Post", 'Comments'],
     }),
     addComment: builder.mutation({
       query: (newComment) => ({
@@ -41,14 +29,14 @@ export const postApi = createApi({
         method: "POST",
         body: newComment,
       }),
-      invalidatesTags: ["Post"],
+      invalidatesTags: ["Post", 'Comments'],
     }),
     deleteComment: builder.mutation({
       query: (id) => ({
         url: `/api/comments/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Post"],
+      invalidatesTags: ["Post", 'Comments'],
     }),
     toggleLike: builder.mutation({
       query: ({ postId }) => ({
@@ -86,9 +74,10 @@ export const postApi = createApi({
         url: `/api/posts/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["Posts"]
     }),
   }),
-});
+})
 
 export const {
   useGetPostByIdQuery,
