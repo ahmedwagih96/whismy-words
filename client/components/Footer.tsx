@@ -1,5 +1,5 @@
 const Footer = () => {
-  const year = new Date().getFullYear()
+  const year = new Date().getFullYear();
   return <footer style={styles}>Copyright {year} &copy;</footer>;
 };
 
@@ -11,6 +11,7 @@ const styles = {
   justifyContent: "center",
   alignItems: "center",
   height: "50px",
+  marginTop: "auto",
 };
 
 export default Footer;

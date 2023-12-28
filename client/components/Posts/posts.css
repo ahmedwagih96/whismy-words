@@ -7,7 +7,6 @@
 
 .post__item {
   height: 400px;
-  background-color: rgb(244, 244, 244);
   padding: 20px 30px;
   border-radius: 5px;
   display: flex;
@@ -103,6 +102,13 @@
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 9;
   line-clamp: 9;
+}
+
+.post__description  * {
+  font-size: 17px;
+  font-weight: normal;
+  text-decoration: none;
+  font-style: normal;
 }
 
 @media (max-width: 720px) {

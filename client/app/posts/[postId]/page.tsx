@@ -6,6 +6,7 @@ import { useParams } from "next/navigation";
 import { useGetPostByIdQuery } from "@/redux/services/postApi";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import parse from "html-react-parser";
 function PageDescription() {
   const { data: session } = useSession();
   const params = useParams();
@@ -60,7 +61,7 @@ function PageDescription() {
               width={300}
             />
           </div>
-          <p className="postDetails__description">{post?.description}</p>
+          <div className="postDetails__description">{parse(post?.description)}</div>
           <PostComments post={post} />
         </>
       ) : null}

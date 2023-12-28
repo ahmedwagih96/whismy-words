@@ -93,30 +93,6 @@
   object-fit: contain;
 }
 
-.postDetails form button {
-  margin-left: 10px;
-  background-color: var(--secondary-color);
-  color: var(--main-color);
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 17px;
-  padding: 2px 5px;
-  border: 1px solid var(--blue-color);
-}
-
-.postDetails .update__image {
-  font-size: 14px;
-  font-weight: bold;
-  color: var(--blue-color);
-  cursor: pointer;
-}
-
-.postDetails .update__image svg {
-  font-size: 21px;
-  margin-right: 3px;
-}
-
 .postDetails__likes {
   display: flex;
   align-items: center;
@@ -132,9 +108,15 @@
   cursor: auto;
 }
 .postDetails__description {
-  font-size: 18px;
   line-height: 1.8;
   color: var(--primary-color);
+}
+
+.postDetails__description > ul,ol{
+  padding: 0px 30px;
+}
+.postDetails__description > ul{
+  list-style: circle;
 }
 
 @media (max-width: 720px) {
@@ -258,6 +240,7 @@
 
 .update__comment .update__btn {
   background-color: var(--green-color);
+  margin-right: 10px;
 }
 
 .update__comment .cancel__btn {

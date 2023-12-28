@@ -49,7 +49,8 @@ import Categories from "./Categories";
 import SelectBox from "./SelectBox";
 import Modal from "./Modal";
 import LoadingIcon from "./LoadingIcon";
-import LoadingSpinner from './LoadingSpinner'
+import LoadingSpinner from "./LoadingSpinner";
+import QuillEditor from "./QuillEditor";
 export {
   Header,
   HeaderRight,
@@ -89,5 +90,6 @@ export {
   UpdateCommentForm,
   LoadingIcon,
   LoadingSpinner,
-  AdminHeader
+  AdminHeader,
+  QuillEditor,
 };

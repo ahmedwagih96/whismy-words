@@ -8,6 +8,7 @@ import {
   PhotoIcon,
 } from "@heroicons/react/24/solid";
 import Image from "next/image";
+import QuillEditor from "../QuillEditor";
 function CreatePostForm({
   setModal,
 }: {
@@ -16,10 +17,12 @@ function CreatePostForm({
   const {
     formSubmitHandler,
     setFile,
-    handleChange,
     setCategory,
+    setTitle,
+    setDescription,
+    title,
+    description,
     category,
-    postData,
     file,
     loading,
   } = useCreatePost(setModal);
@@ -32,38 +35,34 @@ function CreatePostForm({
 
   return (
     <form onSubmit={formSubmitHandler} className="create__form">
-      <div className="inputs__container">
+      <div>
         <input
-          onChange={handleChange}
-          value={postData.title}
+          onChange={(e) => setTitle(e.target.value)}
+          value={title}
           type="text"
           name="title"
           placeholder="Post Title"
           className="create__input title"
         />
-        <textarea
-          className="create__textarea"
-          placeholder="Post Description"
-          value={postData.description}
-          onChange={handleChange}
-          name="description"
-          rows={5}
+      </div>
+        <QuillEditor
+          description={description}
+          setDescription={setDescription}
         />
-        <div className="select__inputs">
-          <label className="upload__image">
-            <PaperClipIcon className="image__icons" />
-            <PhotoIcon className="image__icons" />
-            <input
-              type="file"
-              name="file"
-              id="file"
-              onChange={(e) => {
-                handleSelectedImage(e);
-              }}
-            />
-          </label>
-          <Categories category={category} setCategory={setCategory} />
-        </div>
+      <div className="select__inputs">
+        <label className="upload__image">
+          <PaperClipIcon className="image__icons" />
+          <PhotoIcon className="image__icons" />
+          <input
+            type="file"
+            name="file"
+            id="file"
+            onChange={(e) => {
+              handleSelectedImage(e);
+            }}
+          />
+        </label>
+        <Categories category={category} setCategory={setCategory} />
       </div>
       {file ? (
         <div className="image__preview">

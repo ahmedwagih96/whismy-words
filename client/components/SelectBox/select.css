@@ -15,8 +15,8 @@
   cursor: pointer;
   border-radius: 5px;
   text-align: left;
-  background: var(--white-color);
   padding: 10px;
+  background-color: inherit;
   outline: none;
   border: none;
   color: var(--blue-color);

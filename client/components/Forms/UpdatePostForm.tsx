@@ -1,3 +1,4 @@
+"use client";
 import useUpdatePost from "@/hooks/useUpdatePost";
 import { PostType } from "@/typings/mongoTypes";
 import { ChangeEvent, Dispatch, SetStateAction } from "react";
@@ -8,6 +9,7 @@ import {
 } from "@heroicons/react/24/solid";
 import { Categories, LoadingIcon } from "@/components";
 import Image from "next/image";
+import QuillEditor from "../QuillEditor";
 function UpdatePostForm({
   post,
   setModal,
@@ -19,9 +21,11 @@ function UpdatePostForm({
     setCategory,
     updatePostHandler,
     setFile,
-    handleChange,
+    setTitle,
+    setDescription,
+    title,
+    description,
     file,
-    postData,
     loading,
     category,
   } = useUpdatePost(post, setModal);
@@ -36,38 +40,31 @@ function UpdatePostForm({
       onSubmit={(e) => updatePostHandler(e, post._id)}
       className="create__form"
     >
-      <div className="inputs__container">
+      <div>
         <input
-          onChange={handleChange}
-          value={postData.title}
+          onChange={(e) => setTitle(e.target.value)}
+          value={title}
           name="title"
           type="text"
           placeholder="Post Title"
           className="create__input title"
         />
-        <textarea
-          className="create__textarea"
-          placeholder="Post Description"
-          value={postData.description}
-          onChange={handleChange}
-          name="description"
-          rows={5}
-        />
-        <div className="select__inputs">
-          <label className="upload__image">
-            <PaperClipIcon className="image__icons" />
-            <PhotoIcon className="image__icons" />
-            <input
-              type="file"
-              name="file"
-              id="file"
-              onChange={(e) => {
-                handleSelectedImage(e);
-              }}
-            />
-          </label>
-          <Categories category={category} setCategory={setCategory} />
-        </div>
+      </div>
+      <QuillEditor description={description} setDescription={setDescription} />
+      <div className="select__inputs">
+        <label className="upload__image">
+          <PaperClipIcon className="image__icons" />
+          <PhotoIcon className="image__icons" />
+          <input
+            type="file"
+            name="file"
+            id="file"
+            onChange={(e) => {
+              handleSelectedImage(e);
+            }}
+          />
+        </label>
+        <Categories category={category} setCategory={setCategory} />
       </div>
       <div className="image__preview">
         {file ? (

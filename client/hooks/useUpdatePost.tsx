@@ -1,9 +1,7 @@
 "use client";
 import { PostType } from "@/typings/mongoTypes";
-import { PostData } from "@/typings/types";
 import { useRouter } from "next/navigation";
 import {
-  ChangeEvent,
   FormEvent,
   useState,
   Dispatch,
@@ -27,19 +25,12 @@ function useUpdatePost(
   const [file, setFile] = useState<File>();
   const [updateModal, setUpdateModal] = useState<boolean>(false);
   const [category, setCategory] = useState<string>(post?.category || "");
-  const [postData, setPostData] = useState<PostData>({
-    title: post?.title || "",
-    description: post?.description || "",
-  });
 
-  const handleChange = (
-    e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-  ) => {
-    setPostData((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
+  const [title, setTitle] = useState<string>(post?.title || "");
+  const [description, setDescription] = useState<string>(
+    post?.description || ""
+  );
+
   const [loading, setLoading] = useState<boolean>(false);
 
   // UPDATE POST
@@ -49,17 +40,16 @@ function useUpdatePost(
   ) => {
     e.preventDefault();
     // Validate
-    if (postData.title.trim() === "")
-      return toast.error("Post title is required");
+    if (title.trim() === "") return toast.error("Post title is required");
     if (category.trim() === "") return toast.error("Post category is required");
-    if (postData.description.trim() === "")
+    if (description.trim() === "")
       return toast.error("Post description is required");
     setLoading(true);
 
     const formData = new FormData();
-    formData.append("title", postData.title);
+    formData.append("title", title);
     formData.append("category", category);
-    formData.append("description", postData.description);
+    formData.append("description", description);
     if (file) formData.append("image", file);
 
     const newPost = {
@@ -82,7 +72,7 @@ function useUpdatePost(
       text: "You won't be able to revert this post!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
+      confirmButtonColor: "#0275d8",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
     }).then(async (isOk) => {
@@ -102,9 +92,11 @@ function useUpdatePost(
     setUpdateModal,
     setCategory,
     updatePostHandler,
-    handleChange,
+    setTitle,
+    setDescription,
+    title,
+    description,
     file,
-    postData,
     updateModal,
     category,
     loading,

@@ -1,6 +1,7 @@
 import { PostType } from "@/typings/mongoTypes";
 import Link from "next/link";
 import Image from "next/image";
+import parse from "html-react-parser";
 function PostItem({ post }: { post: PostType }) {
   return (
     <div className="post__item">
@@ -18,7 +19,7 @@ function PostItem({ post }: { post: PostType }) {
           <h4 className="post__title">{post?.title}</h4>
           <p className="post__category">{post?.category}</p>
         </div>
-        <p className="post__description">{post?.description}</p>
+        <div className="post__description">{parse(post?.description)}</div>
         <div className="post__info">
           <div className="post__author">
             <strong>Author: </strong>
