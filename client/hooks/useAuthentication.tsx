@@ -40,7 +40,10 @@ export default function useAuthentication() {
     // IF REGISTER USER IS SUCCESSFUL SHOW MESSAGE AND THEN REDIRECT TO LOGIN PAGE
     if (registerMessage) {
       setAuthForm(authFormInitialState);
-      Swal.fire(`${registerMessage}`, "success").then((isOk) => {
+      Swal.fire({
+        text: registerMessage,
+        confirmButtonColor: "#0275d8",
+      }).then((isOk) => {
         if (isOk) {
           router.push("/auth/login");
         }
@@ -79,7 +82,7 @@ export default function useAuthentication() {
   const logoutHandler = () => {
     // SIGN OUT WITH NEXT-AUTH
     signOut({ redirect: false });
-    router.push("/auth/login");
+    router.push("/");
   };
 
   // DELETE USER
@@ -90,7 +93,7 @@ export default function useAuthentication() {
       text: "This account will be permanently deleted!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
+      confirmButtonColor: "#0275d8",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, delete it!",
     }).then(async (isOk) => {

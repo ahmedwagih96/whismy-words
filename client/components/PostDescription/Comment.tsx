@@ -6,7 +6,7 @@ import { CommentType } from "@/typings/mongoTypes";
 import Moment from "react-moment";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-
+import Link from 'next/link'
 function Comment({ comment }: { comment: CommentType }) {
   const { deleteCommentHandler, updateModal, setUpdateModal } = useComment();
   const { data: session } = useSession();
@@ -14,7 +14,7 @@ function Comment({ comment }: { comment: CommentType }) {
   return (
     <div className="comment">
       <div className="comment__info">
-        <div className="comment__user-info">
+        <Link className="comment__user-info" href={`/users/${comment?.user._id}`}>
           <Image
             src={comment?.user.profilePhoto.url}
             alt="user image"
@@ -23,7 +23,7 @@ function Comment({ comment }: { comment: CommentType }) {
             height={50}
           />
           <span className="comment__username">{comment?.username}</span>
-        </div>
+        </Link>
         <div className="comment__time">
           <Moment fromNow ago>
             {comment.createdAt}

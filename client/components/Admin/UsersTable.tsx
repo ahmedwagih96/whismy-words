@@ -34,20 +34,16 @@ const UsersTable = () => {
               <tr key={profile._id}>
                 <td className="table__hidden">{index + 1}</td>
                 <td>
-                  <div className="table__image">
-                    <Link href={`/users/${profile._id}`}>
-                      <Image
-                        src={profile.profilePhoto.url}
-                        alt="User Profile Image"
-                        className="table__user-image"
-                        width={40}
-                        height={40}
-                      />
-                      <span className="table__username">
-                        {profile.username}
-                      </span>
-                    </Link>
-                  </div>
+                  <Link href={`/users/${profile._id}`} className="table__image">
+                    <Image
+                      src={profile.profilePhoto.url}
+                      alt="User Profile Image"
+                      className="table__user-image"
+                      width={40}
+                      height={40}
+                    />
+                    <span className="table__username">{profile.username}</span>
+                  </Link>
                 </td>
                 <td className="table__hidden">
                   <b className="user-email">{profile.email}</b>

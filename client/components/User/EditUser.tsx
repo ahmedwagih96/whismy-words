@@ -2,11 +2,7 @@
 import { useState, useRef } from "react";
 import { Modal, UpdateUserForm } from "@/components";
 
-import {
-  EllipsisVerticalIcon,
-  PencilSquareIcon,
-  TrashIcon,
-} from "@heroicons/react/24/solid";
+import { EllipsisVerticalIcon, PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 import useDropdown from "@/hooks/useDropdown";
 import useAuthentication from "@/hooks/useAuthentication";
 import useUpdateProfile from "@/hooks/useUpdateUser";

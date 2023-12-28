@@ -40,7 +40,10 @@ function useResetPassword() {
     });
     setLoading(false);
     if (response) {
-      Swal.fire(`${response}`).then((isOk) => {
+      Swal.fire({
+        text: response,
+        confirmButtonColor: "#0275d8",
+      }).then((isOk) => {
         if (isOk) {
           router.push("/auth/login");
         }
@@ -63,7 +66,10 @@ function useResetPassword() {
     const response = await sendForgotPasswordEmail(resetPasswordForm.email);
     setLoading(false);
     if (response) {
-      Swal.fire(`${response}`, "success");
+      Swal.fire({
+        text: response,
+        confirmButtonColor: "#0275d8",
+      });
       setResetPasswordForm((prev) => ({
         ...prev,
         email: "",

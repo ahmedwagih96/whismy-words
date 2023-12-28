@@ -8,7 +8,7 @@ function AdminCard({ title, count, Icon }: AdminCardProps) {
       <div className="admin__card-count">{count}</div>
       <div className="admin__card-link-wrapper">
         <Link href={`admin/${title}`} className="admin__card-link">
-          See all {title}
+          {title}
         </Link>
         <div className="admin__cardIcon">
           <Icon className="icon" />
